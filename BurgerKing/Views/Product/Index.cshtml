@@ -1,0 +1,113 @@
+﻿@model IEnumerable<BurgerKing.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Thực đơn</h5>
+            <h1 class="mb-5">Các món ăn của chúng tôi</h1>
+        </div>
+    </div>
+</div>
+<section>
+    <div class="container">
+        <div class="row">
+            <!-- Category -->
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Danh mục</h2>
+                    @Html.Partial("_Categories")
+                </div>
+            </div>
+            <!-- Category -->
+            <!-- Item Food -->
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <h2 class="title text-center">Sản phẩm</h2>
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="~/images/@item.ProImage" alt="" />
+                                            <h2>@String.Format("{0:N0} VNĐ", @item.ProPrice)</h2>
+                                            <p>@item.ProName</p>
+                                            <button type="button" class="ajax-add-to-cart btn btn-default add-to-cart" data-id="@item.ProId">
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Item Food -->
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+            $(".ajax-add-to-cart").click(function () {
+                $.ajax({
+                    url: "/ShoppingCart/OrderNow",
+                    data: {
+                        id: $(this).data("id")
+                    },
+                    success: function (result) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm giỏ hàng thành công',
+                            showConfirmButton: false,
+                            timer: 800,
+                            // Gọi hàm cập nhật số lượng mục trong giỏ hàng
+                            onClose: function () {
+                                updateCartItemCount();
+                            }
+                        });
+                    },
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm giỏ hàng thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 800
+                        });
+                    }
+                });
+            });
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+        });
+    </script>
+}
+
+

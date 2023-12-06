@@ -1,0 +1,21 @@
+﻿@using BurgerKing.Models;
+
+@{
+    if (Session["Cart"] != null)
+    {
+        List<Cart> temp = (List<Cart>)Session["Cart"];
+        var count = temp.Sum(x => x.Quantity);
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Cart", "Index", "ShoppingCart")</li>
+            <li style="color:whitesmoke; padding-top:15px; display:block"> @count</li>
+        </ul>
+        <span></span>
+    }
+    else
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Cart", "Index", "ShoppingCart")</li>
+            <li style="color:whitesmoke; padding-top:15px; display:block">0</li>
+        </ul>
+    }
+}

@@ -1,0 +1,85 @@
+﻿@model BurgerKing.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title"> Create new Product </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <h4 class="card-title">Product Image</h4>
+                            <img id="previewImage" src="#" alt="Preview Image" style="width: 100%; height: auto; display: none;" />
+                            <br />
+                            <input type="file" class="" name="file" required="required" id="file" onchange="displayImage(this)" />
+                            @Html.ValidationMessageFor(model => model.ProImage, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="forms-sample">
+                            <div class="form-group">
+                                <h4 class="card-title">Product Name</h4>
+                                @Html.EditorFor(model => model.ProName, new { htmlAttributes = new { @class = "form-control", @placeholder = "ProName" } })
+                                @Html.ValidationMessageFor(model => model.ProName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <h4 class="card-title">Product Describe</h4>
+                                @Html.EditorFor(model => model.ProDes, new { htmlAttributes = new { @class = "form-control", @placeholder = "ProDes" } })
+                                @Html.ValidationMessageFor(model => model.ProDes, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <h4 class="card-title">Category</h4>
+                                @Html.DropDownList("CatId", null, new { htmlAttributes = new { @class = "form-control form-control-lg" } })
+                                @Html.ValidationMessageFor(model => model.CatId, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <h4 class="card-title">Product Price</h4>
+                                @Html.EditorFor(model => model.ProPrice, new { htmlAttributes = new { @class = "form-control", @placeholder = "ProPrice" } })
+                                @Html.ValidationMessageFor(model => model.ProPrice, "", new { @class = "text-danger" })
+                            </div>
+                            <button type="submit" value="Create" class="btn btn-gradient-primary me-2">Create</button>
+                            <button class="btn btn-light"> @Html.ActionLink("Cancel", "Index")</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function displayImage(input) {
+        var fileInput = input;
+        var previewImage = document.getElementById('previewImage');
+
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>

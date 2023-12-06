@@ -1,0 +1,39 @@
+﻿@model BurgerKing.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title"> Edit Category </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="forms-sample">
+                            <div class="form-group">
+                                <h4 class="card-title">Category Name</h4>@Html.HiddenFor(model => model.CatId)
+                                @Html.EditorFor(model => model.CatName, new { htmlAttributes = new { @class = "form-control", @id = "exampleInputUsername1", @placeholder = "CatName" } })
+                                @Html.ValidationMessageFor(model => model.CatName, "", new { @class = "text-danger" })
+                            </div>
+                            <button type="submit" value="Save" class="btn btn-gradient-success btn-fw">Save</button>
+                            <button class="btn btn-light"> @Html.ActionLink("Cancel", "Index")</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

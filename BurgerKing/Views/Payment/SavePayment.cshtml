@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "SavePayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="alert alert-warning">
+    Bạn đã thanh toán thành công ! @Html.ActionLink("Trở về trang chủ", "Index", "Home")
+</div>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+        });
+    </script>
+}

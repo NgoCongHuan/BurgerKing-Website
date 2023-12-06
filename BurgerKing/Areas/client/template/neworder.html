@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Thông tin đơn hàng mới từ khách hàng: {{CustomerName}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            color: #0066cc;
+        }
+
+        /* Style the button */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thông tin đơn hàng mới từ khách hàng: {{CustomerName}}</h1>
+    Mã đơn hàng: {{OrderId}} <br />
+    Điện thoại: {{CustomerPhone}} <br />
+    Email: {{CustomerEmail}} <br />
+    Địa chỉ: {{CustomerAddress}} <br />
+    Trạng thái đơn hàng: {{Status}} <br />
+    Phương thức thanh toán: {{PaymentType}} <br />
+    Tổng thanh toán: {{Total}} VNĐ<br />
+
+    <!-- Button linking to the order history page -->
+    <a href="http://localhost:50111/Product/Index" class="button">Xem đơn hàng </a>
+</body>
+</html>

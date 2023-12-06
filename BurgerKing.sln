@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34301.259
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerKing", "BurgerKing\BurgerKing.csproj", "{A536BE9D-7EC8-4D32-AB1B-D2045D2F24FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{4C05904D-CE7D-4C82-B200-5C0D58DCCA8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A536BE9D-7EC8-4D32-AB1B-D2045D2F24FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A536BE9D-7EC8-4D32-AB1B-D2045D2F24FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A536BE9D-7EC8-4D32-AB1B-D2045D2F24FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A536BE9D-7EC8-4D32-AB1B-D2045D2F24FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C05904D-CE7D-4C82-B200-5C0D58DCCA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C05904D-CE7D-4C82-B200-5C0D58DCCA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C05904D-CE7D-4C82-B200-5C0D58DCCA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C05904D-CE7D-4C82-B200-5C0D58DCCA8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05F08E07-6128-4485-972F-FFD2036E94F0}
+	EndGlobalSection
+EndGlobal

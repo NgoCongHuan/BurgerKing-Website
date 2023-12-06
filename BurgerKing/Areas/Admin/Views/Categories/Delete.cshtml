@@ -1,0 +1,41 @@
+﻿@model BurgerKing.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title"> Are you sure you want to delete this? </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="forms-sample">
+                            <div class="form-group">
+                                <h4 class="card-title">Category Name</h4>@Html.HiddenFor(model => model.CatId)
+                                <span class="form-control">
+                                    @Html.DisplayFor(model => model.CatName)
+                                </span>
+                                @Html.ValidationMessageFor(model => model.CatName, "", new { @class = "text-danger" })
+                            </div>
+                            <button type="submit" value="Delete" class="btn btn-gradient-danger btn-fw">Delete</button>
+                            <button class="btn btn-light"> @Html.ActionLink("Cancel", "Index")</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

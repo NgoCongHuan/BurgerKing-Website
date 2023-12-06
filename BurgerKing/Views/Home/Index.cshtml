@@ -1,0 +1,86 @@
+﻿@using BurgerKing.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<!-- About -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-6 text-start">
+                        <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="~/images/about-1.jpg">
+                    </div>
+                    <div class="col-6 text-start">
+                        <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s" src="~/images/about-2.jpg" style="margin-top: 25%;">
+                    </div>
+                    <div class="col-6 text-end">
+                        <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s" src="~/images/about-3.jpg">
+                    </div>
+                    <div class="col-6 text-end">
+                        <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s" src="~/images/about-4.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h5 class="section-title ff-secondary text-start text-primary fw-normal">Về chúng tôi</h5>
+                <h1 class="mb-4">Thương hiệu <i class="fas fa-hamburger text-primary me-2"></i>Burger King</h1>
+                <p class="mb-4">Được thành lập vào năm 1954, BURGER KING® hiện là chuỗi nhà hàng thức ăn nhanh lớn nhất thế giới. Mỗi ngày, có hơn 11 triệu thực khách đến với các nhà hàng BURGER KING® trên khắp thế giới để thưởng thức các món ăn chất lượng cao, hương vị tuyệt hảo và giá cả phải chăng.</p>
+                <p class="mb-4">Phương châm của BURGER KING® là bất cứ ở đâu, vào thời điểm nào, chúng tôi đều phục vụ những chiếc bánh WHOPPER® ngon nhất thế giới cho đông đảo khách hàng sành điệu.</p>
+                <div class="row g-4 mb-4">
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                            <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">15</h1>
+                            <div class="ps-4">
+                                <p class="mb-0">Đã có</p>
+                                <h6 class="text-uppercase mb-0">Thành viên</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                            <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">@ViewBag.OrderQuantity</h1>
+                            <div class="ps-4">
+                                <p class="mb-0">Đã bán</p>
+                                <h6 class="text-uppercase mb-0">Đơn hàng</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary py-3 px-5 mt-2" href="">Đăng kí ngay !</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About -->
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+        });
+    </script>
+}

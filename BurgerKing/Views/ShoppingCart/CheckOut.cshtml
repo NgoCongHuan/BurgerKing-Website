@@ -1,0 +1,154 @@
+﻿@using BurgerKing.Models;
+@using BurgerKing.Others;
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $("#customer-form").validate({
+        rules: {
+            cusName: {
+                required: true
+            },
+            cusPhone: {
+                required: true
+            },
+            cusEmail: {
+                required: true
+            },
+            cusAddress: {
+                required: true
+            }
+        }
+    });
+</script>
+
+@{
+    if (Session["Cart"] != null)
+    {
+        <div class="container-fluid py-8">
+            <div class="container px-4">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1 class="text-2xl font-weight-bold mb-4">Thông tin khách hàng</h1>
+                        <div class="bg-white shadow-card mb-4">
+                            @using (Html.BeginForm("ProcessOrder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
+                            {
+                                @*@Html.AntiForegyToken()*@
+                                <div class="form-horizontal p-2">
+                                    <div class="form-group mb-3">
+                                        <label class="control-label col-md-2 mb-1"><b>Họ và tên:</b></label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="cusName" class="form-style form-control" placeholder="Họ và tên" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="control-label col-md-2 mb-1"><b>Số điện thoại:</b></label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="cusPhone" class="form-style form-control" placeholder="Số điện thoại" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="control-label col-md-2 mb-1"><b>Email:</b></label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="cusEmail" class="form-style form-control" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="control-label col-md-2 mb-1"><b>Địa chỉ:</b></label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="cusAddress" class="form-style form-control" placeholder="Địa chỉ" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="control-label col-md-2 mb-1"><b>Ghi chú:</b></label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="ordNote" class="form-style form-control" placeholder="Ghi chú" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-12">
+                                            <input type="submit" name="Process Order" class="btn btn-warning p-2" style="width:20%; color:white" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h1 class="text-2xl font-weight-bold mb-4">Giỏ hàng của tôi</h1>
+                        <div class="col-md-12 mb-4">
+                            <div class="shadow-card">
+                                <div class="d-flex justify-content-between">
+                                    @{
+                                        List<Cart> temp = (List<Cart>)Session["Cart"];
+                                        var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
+                                    }
+                                    <span style="font-size:20px; color: #FEA116;"><b>Tổng thanh toán</b></span>
+                                    <span style="font-size:20px; color: #FEA116;"><b>@Html.FormatValue(total, "{0:N0} VNĐ")</b></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <div class="shadow-card">
+                                @foreach (var cart in (List<Cart>)Session["Cart"])
+                                {
+                                    double p = Convert.ToDouble(cart.Product.ProPrice);
+                                    int q = Convert.ToInt32(cart.Quantity);
+                                    double subtotal = p * q;
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="~/images/@cart.Product.ProImage" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span style="font-size: 16px; font-weight: 500;">@cart.Product.ProName</span>
+                                                <span style="font-size: 16px; font-weight: 500;">@Html.FormatValue(cart.Product.ProPrice, "{0:N0} VNĐ")</span>
+                                            </h5>
+                                            <small class="fst-italic">Số lượng: @cart.Quantity</small>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            Không có sản phẩm nào trong giỏ hàng
+        </div>
+    }
+}
+
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+        });
+    </script>
+}

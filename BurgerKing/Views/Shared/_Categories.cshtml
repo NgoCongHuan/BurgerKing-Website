@@ -1,0 +1,18 @@
+﻿@using BurgerKing.Models
+
+@{
+    BurgerKingDBContext dBContext = new BurgerKingDBContext();
+    List<Category> Listcategories = dBContext.Categories.ToList();
+}
+
+<!--category-productsr-->
+<div class="panel-group category-products" id="accordian">
+    @foreach (var item in Listcategories)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a href="#">@Html.ActionLink(item.CatName, "Index", "Product", new { categoryId = item.CatId }, null)</a></h4>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,205 @@
+﻿@using BurgerKing.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (Session["Cart"] != null)
+    {
+        using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+        {
+            <div class="container-fluid py-8">
+                <div class="container px-4">
+                    <h1 class="text-2xl font-weight-bold mb-4">Giỏ hàng của tôi</h1>
+                    <div class="row">
+                        <div class="col-md-9">
+                            @foreach (var cart in (List<Cart>)Session["Cart"])
+                            {
+                                double p = Convert.ToDouble(cart.Product.ProPrice);
+                                int q = Convert.ToInt32(cart.Quantity);
+                                double subtotal = p * q;
+                                <div class="list-product bg-white rounded-lg shadow-md p-6 mb-4">
+                                    <table class="table table-checkout">
+                                        <tbody>
+                                            <tr class="product-content">
+                                                <td class="">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="h-16 w-16 mr-4" src="~/images/@cart.Product.ProImage" height="150px" width="auto" alt="Product image">
+                                                    </div>
+                                                </td>
+                                                <td class="product-name">
+                                                    <span class="font-weight-bold" style="font-size: 20px;"><b>@cart.Product.ProName</b></span><br>
+                                                    <span class="describe">@cart.Product.ProDes</span>
+                                                </td>
+                                                <td class="text-center price">@Html.FormatValue(cart.Product.ProPrice, "{0:N0} VNĐ")</td>
+                                                <td class="quantity">
+                                                    <div class="input-group">
+                                                        <button class="btn btn-outline-secondary cart_quantity_up" type="button">+</button>
+                                                        <input class="text-center form-control cart_quantity_input" type="text" name="quantity" value="@cart.Quantity" autocomplete="off" size="2">
+                                                        <button class="btn btn-outline-secondary cart_quantity_down" type="button">-</button>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center total-price">@Html.FormatValue(subtotal, "{0:N0} VNĐ")</td>
+                                                <td class="cart_delete">
+                                                    @Html.ActionLink("X", "RemoveItem", "ShoppingCart", new { Id = cart.Product.ProId }, new { @class = "btn btn-danger", @onclick = "return confirm('Are you sure you want to remove this item from the cart?');" })
+                                                </td>
+                                            </tr>
+                                            <!-- More product rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            <div class="justify-content">
+                                <div>
+                                    <a href="" id="empty" class="btn btn-danger" style="margin-left: 10px">Xóa tất cả</a>
+                                    <input type="submit" style="margin-left: 10px" class="btn btn-success" value="Cập nhật" />
+                                    <a href="@Url.Action("Index","Product")" class="btn btn-warning" style="color: white; margin-left: 10px">Tiếp tục mua hàng</a>
+                                </div>
+                                <div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        @{
+                            List<Cart> temp = (List<Cart>)Session["Cart"];
+                            var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
+                        }
+                        <div class="col-md-3">
+                            <div class="check-out-group bg-white rounded-lg shadow-md p-6">
+                                <h3 class="text-lg font-weight-bold mb-4">Thanh toán</h3>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Tổng đơn hàng</span>
+                                    <span>@Html.FormatValue(total, "{0:N0} VNĐ")</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Giảm giá</span>
+                                    <span>0 VNĐ</span>
+                                </div>
+                                <hr class="my-2">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="font-weight-bold"><b>Tổng thanh toán</b></span>
+                                    <span class="font-weight-bold"><b>@Html.FormatValue(total, "{0:N0} VNĐ")</b></span>
+                                </div>
+                                &nbsp;@Html.ActionLink("Check Out", "CheckOut", "ShoppingCart", new { @class = "btn btn-primary text-white py-2 px-4 rounded-lg w-100" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            Không có sản phẩm nào trong giỏ hàng
+        </div>
+    }
+}
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".quantity").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errmsg").html("Enter digits only!").show().fadeOut("slow");
+                return false;
+            }
+        });
+    });
+</script>
+
+<script>
+    $(Document).ready(function () {
+        // Nút Tiếp tục mua hàng
+        $("#empty").click(function () {
+            $.ajax({
+                url: "@Url.Action("ClearCart", "ShoppingCart")",
+                success: function (data) {
+                // Xử lý kết quả thành công
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi
+                    console.error(error);
+                }
+            });
+        });
+
+        // Tăng giảm số lượng sản phẩm
+        $(".cart_quantity_up").on("click", function () {
+            var inputField = $(this).siblings(".cart_quantity_input");
+            var currentQuantity = parseInt(inputField.val());
+            inputField.val(currentQuantity + 1);
+        });
+
+        $(".cart_quantity_down").on("click", function () {
+            var inputField = $(this).siblings(".cart_quantity_input");
+            var currentQuantity = parseInt(inputField.val());
+
+            if (currentQuantity > 1) {
+                inputField.val(currentQuantity - 1);
+            }
+        });
+    });
+</script>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+
+            // Xóa sản phẩm
+            $("#ajax-delete-item").click(function () {
+                $.ajax({
+                    url: "/ShoppingCart/RemoveItem",
+                    data: {
+                        id: $(this).data("idDelete")
+                    },
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Xóa sản phẩm thành công',
+                            showConfirmButton: false,
+                            timer: 800,
+                            // Gọi hàm cập nhật số lượng mục trong giỏ hàng
+                            onClose: function () {
+                                updateCartItemCount();
+                            }
+                        });
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Xóa sản phẩm thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 800
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
