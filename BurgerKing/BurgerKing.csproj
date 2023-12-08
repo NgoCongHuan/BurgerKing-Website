@@ -179,6 +179,7 @@
     <Content Include="Areas\Admin\gulp-tasks\inject.js" />
     <Content Include="Areas\Admin\gulp-tasks\serve.js" />
     <Content Include="Areas\Admin\gulp-tasks\vendors.js" />
+    <Content Include="Areas\client\template\newcontact.html" />
     <Content Include="Areas\client\template\neworder.html" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
@@ -334,7 +335,7 @@
     <Compile Include="Areas\client\clientAreaRegistration.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrderHistoryController.cs" />
+    <Compile Include="Controllers\PurchaseHistoryController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -360,6 +361,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
     </Compile>
@@ -569,6 +571,9 @@
     <Content Include="Views\Payment\SavePayment.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Payment\PaymentCash.cshtml" />
+    <Content Include="Views\PurchaseHistory\Index.cshtml" />
+    <Content Include="Views\Shared\_ViewOrder.cshtml" />
+    <Content Include="Views\Shared\_OrderNotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -582,7 +587,6 @@
     <Folder Include="Areas\client\Controllers\" />
     <Folder Include="Areas\client\Data\" />
     <Folder Include="Areas\client\Views\Shared\" />
-    <Folder Include="Views\OrderHistory\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

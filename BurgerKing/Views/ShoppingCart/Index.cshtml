@@ -24,25 +24,25 @@
                                     <table class="table table-checkout">
                                         <tbody>
                                             <tr class="product-content">
-                                                <td class="">
+                                                <td class="" style="max-width: 100px">
                                                     <div class="d-flex align-items-center">
                                                         <img class="h-16 w-16 mr-4" src="~/images/@cart.Product.ProImage" height="150px" width="auto" alt="Product image">
                                                     </div>
                                                 </td>
-                                                <td class="product-name">
+                                                <td class="product-name" style="max-width: 100px">
                                                     <span class="font-weight-bold" style="font-size: 20px;"><b>@cart.Product.ProName</b></span><br>
                                                     <span class="describe">@cart.Product.ProDes</span>
                                                 </td>
-                                                <td class="text-center price">@Html.FormatValue(cart.Product.ProPrice, "{0:N0} VNĐ")</td>
-                                                <td class="quantity">
+                                                <td class="text-center price" style="max-width: 100px">@Html.FormatValue(cart.Product.ProPrice, "{0:N0} VNĐ")</td>
+                                                <td class="quantity" style="max-width: 100px">
                                                     <div class="input-group">
                                                         <button class="btn btn-outline-secondary cart_quantity_up" type="button">+</button>
                                                         <input class="text-center form-control cart_quantity_input" type="text" name="quantity" value="@cart.Quantity" autocomplete="off" size="2">
                                                         <button class="btn btn-outline-secondary cart_quantity_down" type="button">-</button>
                                                     </div>
                                                 </td>
-                                                <td class="text-center total-price">@Html.FormatValue(subtotal, "{0:N0} VNĐ")</td>
-                                                <td class="cart_delete">
+                                                <td class="text-center total-price" style="max-width: 100px">@Html.FormatValue(subtotal, "{0:N0} VNĐ")</td>
+                                                <td class="cart_delete" style="max-width: 100px">
                                                     @Html.ActionLink("X", "RemoveItem", "ShoppingCart", new { Id = cart.Product.ProId }, new { @class = "btn btn-danger", @onclick = "return confirm('Are you sure you want to remove this item from the cart?');" })
                                                 </td>
                                             </tr>

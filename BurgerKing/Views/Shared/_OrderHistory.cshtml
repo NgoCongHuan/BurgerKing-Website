@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Details</h2>
@@ -11,7 +11,6 @@
     <h4>Order</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
             @Html.DisplayNameFor(model => model.OrderDate)
         </dt>
@@ -70,7 +69,3 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
