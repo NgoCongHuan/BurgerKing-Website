@@ -21,14 +21,14 @@
             <form novalidate class="needs-validation">
                 <div class="mb-4">
                     <label for="orderNumber" class="form-label"><b>Mã đơn hàng</b><span class="text-danger">*</span></label>
-                    <input type="text" name="OrderId" class="form-control" id="orderNumber" placeholder="Mã đơn hàng của bạn" required>
+                    <input type="text" name="OrderId" class="form-control py-2" id="orderNumber" placeholder="Mã đơn hàng của bạn" required>
                     <div class="invalid-feedback">Vui lòng nhập mã đơn hàng của bạn.</div>
                 </div>
                 <div class="mb-3">
-                    <button id="search" class="btn btn-primary btn-block p-2" style="width: 100%">Xem trạng thái đơn hàng</button>
+                    <button id="search" class="btn btn-primary btn-block py-2" style="width: 100%">Xem trạng thái đơn hàng</button>
                 </div>
             </form>
-            <div class="mt-3">
+            <div class="mt-3 mb-3">
                 <p>Bạn có thể kiểm tra trạng thái đơn hàng bằng cách điền địa chỉ email đã đặt và mã đơn hàng của bạn. Trường hợp cần hỗ trợ, xin vui lòng gửi yêu cầu qua trang <a href="@Url.Action("Index", "Contact")">Liên hệ</a> để được trợ giúp.</p>
             </div>
         </div>

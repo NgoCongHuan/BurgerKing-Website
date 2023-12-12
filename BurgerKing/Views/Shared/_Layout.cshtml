@@ -54,21 +54,45 @@
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a class="nav-item nav-link" href="@Url.Action("Index","Home")">Trang chủ</a>
-                        <a class="nav-item nav-link" href="@Url.Action("Index","Product")">Thực đơn</a>
-                        <a class="nax-item nav-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
-                        <a class="nav-item nav-link" href="@Url.Action("Index","Account")">Tài khoản</a>
-                        <a class="nav-item nav-link" href="@Url.Action("Index","PurchaseHistory")">Lịch sử đơn hàng</a>
-                    </div>
-                    <div class="py-0 pe-4">
-                        <a href="@Url.Action("Index", "ShoppingCart")">
-                            <i class="fa" style="font-size:15px; color:#fff">&#xf217;</i>
-                            <span id="cart_count" class="quantityitem"></span>
-                        </a>
-                    </div>
-                    <a href="" class="sign-in btn btn-primary py-2 px-4">Đăng nhập</a>
-                    <a href="" class="sign-up btn btn-primary py-2 px-4">Đăng kí</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="navbar-nav ms-auto py-0 pe-4">
+                            <a class="nav-item nav-link" href="@Url.Action("Index","Home")">Trang chủ</a>
+                            <a class="nav-item nav-link" href="@Url.Action("Index","Product")">Thực đơn</a>
+                            <a class="nax-item nav-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
+                            <a class="nav-item nav-link" href="@Url.Action("Index","PurchaseHistory")">Lịch sử đơn hàng</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@User.Identity.Name</a>
+                                <div class="dropdown-menu m-0">
+                                    <a href="" class="dropdown-item">Tài khoản</a>
+                                    @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-0 pe-4">
+                            <a href="@Url.Action("Index", "ShoppingCart")">
+                                <i class="fa" style="font-size:15px; color:#fff">&#xf217;</i>
+                                <span id="cart_count" class="quantityitem"></span>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="navbar-nav ms-auto py-0 pe-4">
+                            <a class="nav-item nav-link" href="@Url.Action("Index","Home")">Trang chủ</a>
+                            <a class="nav-item nav-link" href="@Url.Action("Index","Product")">Thực đơn</a>
+                            <a class="nax-item nav-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
+                            <a class="nav-item nav-link" href="@Url.Action("Index","PurchaseHistory")">Lịch sử đơn hàng</a>
+                        </div>
+                        <div class="py-0 pe-4">
+                            <a href="@Url.Action("Index", "ShoppingCart")">
+                                <i class="fa" style="font-size:15px; color:#fff">&#xf217;</i>
+                                <span id="cart_count" class="quantityitem"></span>
+                            </a>
+                        </div>
+                        <a href="@Url.Action("Login","Account")" class="sign-in btn btn-primary py-2 px-4">Đăng nhập</a>
+                        <a href="@Url.Action("Register","Account")" class="sign-up btn btn-primary py-2 px-4">Đăng kí</a>
+                    }
                 </div>
             </nav>
 
@@ -133,7 +157,7 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; Ngô Công Huân, Đồ án Thiết kế web.
+                            &copy; Ngô Công Huân, Đồ án Lập trình web.
 
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                             Mẫu giao diện từ <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>

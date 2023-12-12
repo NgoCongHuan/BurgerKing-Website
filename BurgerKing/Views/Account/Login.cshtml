@@ -1,0 +1,86 @@
+﻿@model BurgerKing.Models.LoginView
+
+@{
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+        });
+    </script>
+}
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <!-- Sign in Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
+                    <img src="~/images/Burger01.png" class="img-fluid">
+                </div>
+                <div class="col-md-6 d-flex" style="align-items: center;">
+                    <div class="wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Đăng nhập</h5>
+                            <h1 class="mb-5">Đăng nhập tài khoản</h1>
+                        </div>
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="name" name="EmailOrPhone" placeholder="Your Name" required>
+                                        <label for="name"><i class="fa fa-user me-3"></i>Email hoặc Số điện thoại</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="password" name="Password" placeholder="password" required>
+                                        <label for="password"><i class="fa fa-lock me-3"></i>Mật khẩu</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe" checked>
+                                    <label class="form-check-label" for="rememberMe">Nhớ tài khoản</label>
+                                    <a href="#" class="forgot-pass float-end">Quên mật khẩu ?</a>
+                                </div>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger", style = "margin-top: 14px; margin-bottom: -15px; margin-left: -32px;" })
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Đăng nhập</button>
+                                </div>
+                                <div class="col-12">
+                                    <a href="/signup.html" class="exist-account">Bạn chưa có tài khoản ? Đăng kí ngay</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sign in End -->
+}

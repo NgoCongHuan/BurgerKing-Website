@@ -44,7 +44,7 @@ namespace BurgerKing.Controllers
                 new MailHelper().SendMail(contact.email, "Phản hồi mới từ khách hàng của Burger King", content);
                 new MailHelper().SendMail(toEmail, "Phản hồi mới từ khách hàng của Burger King", content);
 
-                return View();
+                return View("Index");
             }
             catch (Exception ex)
             {

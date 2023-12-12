@@ -95,8 +95,7 @@ namespace BurgerKing.Controllers
             var query = from ord in dBContext.Orders where ord.OrderId.ToString() == id select ord;
 
             // Tính tổng số tiền thanh toán
-            List<Cart> ListCart = (List<Cart>)Session[strCart];
-            var TotalPrice = ListCart.Sum(n => n.Product.ProPrice * n.Quantity);
+            int TotalPrice = (int)dBContext.OrderDetails.Where(o => o.OrderId.ToString() == id).Sum(o => o.Price * o.Quantity);
 
             foreach (Order ord in query)
             {
@@ -152,8 +151,7 @@ namespace BurgerKing.Controllers
             var query = from ord in dBContext.Orders where ord.OrderId.ToString() == id select ord;
 
             // Tính tổng số tiền thanh toán
-            List<Cart> ListCart = (List<Cart>)Session[strCart];
-            var TotalPrice = ListCart.Sum(n => n.Product.ProPrice * n.Quantity);
+            int TotalPrice = (int)dBContext.OrderDetails.Where(o => o.OrderId.ToString() == id).Sum(o => o.Price * o.Quantity);
 
             foreach (Order ord in query)
             {

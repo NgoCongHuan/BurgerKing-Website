@@ -1,74 +1,196 @@
-﻿@model BurgerKing.Models.Order
+﻿@model BurgerKing.Models.Order_OrderDetail
 
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
+@{
+    var orderId = Model.Order.OrderId;
+    var totalPrice = ViewBag.TotalPrice;
+}
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderId)
-        </dt>
+<style>
+    .container-ribbon {
+        --d: 6px; /* folded part */
+        --c: blue; /* color */
+        --f: 16px; /* ribbon font-size */
 
-        <dd>
-            @Html.DisplayFor(model => model.OrderId)
-        </dd>
+        width: 60%;
+        position: relative;
+        margin: 0 auto;
+    }
+        
+    .container-ribbon::before {
+        z-index: 1;
+        content: attr(data-ribbon);
+        position: absolute;
+        font-size: var(--f);
+        top: 0;
+        right: 0;
+        transform: translate(29.29%, -100%) rotate(45deg);
+        color: #fff;
+        text-align: center;
+        border: 1px solid transparent;
+        border-bottom: 0;
+        transform-origin: bottom left;
+        padding: 5px 35px calc(var(--d) + 5px);
+        background: linear-gradient(rgba(0, 0, 0, 0.5) 0 0) bottom/100% var(--d) no-repeat var(--c);
+        background-clip: padding-box;
+        clip-path: polygon(0 0,100% 0,100% 100%,calc(100% - var(--d)) calc(100% - var(--d)),var(--d) calc(100% - var(--d)),0 100%);
+        -webkit-mask: linear-gradient(135deg,transparent calc(50% - var(--d) * 0.707),#fff 0) bottom left, linear-gradient(-135deg, transparent calc(50% - var(--d) * 0.707), #fff 0)bottom right;
+        -webkit-mask-size: 300vmax 300vmax;
+        -webkit-mask-composite: destination-in;
+        mask-composite: intersect;
+    }
+        
+    .card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </dt>
+    .text-right {
+        text-align: right;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
+    .font-weight-bold {
+        font-weight: bold;
+        color: black;
+    }
+</style>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentType)
-        </dt>
+<div class="container-xxl wow fadeInUp" data-wow-delay="0.2s">
+    <div class="container">
+        <div class="container-ribbon" data-ribbon="@(Model.Order.Status == "Đang chờ thanh toán" ? "Chưa thanh toán" : "Đã thanh toán")" style="--d:8px;--c:@(Model.Order.Status == "Đang chờ thanh toán" ? "red" : "green")">
+            <div class="card">
+                <div class="card-header justify-content-between logo p-2 px-5" style="display:flex">
+                    <img src="~/images/logo.png" style="width:50px; height:auto" />
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PaymentType)
-        </dd>
+                <div class="card-body invoice p-5">
+                    <h1 class="card-title">Mã hóa đơn: @Model.Order.OrderId</h1>
+                    <span class="font-weight-bold d-block mt-4">Hello, @Model.Order.CustomerName</span>
+                    <p>Cảm ơn bạn đã mua sản phẩm tại Burger King, chúc bạn có một ngày tốt lành</p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
+                    <div class="border-top mt-3 mb-3 border-bottom table-responsive payment">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="py-2">
+                                            <span class="d-block text-muted">Ngày mua hàng</span>
+                                            <span>@Model.Order.OrderDate</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="py-2">
+                                            <span class="d-block text-muted">Số điện thoại</span>
+                                            <span>@Model.Order.CustomerPhone</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="py-2">
+                                            <span class="d-block text-muted">Phương thức thanh toán</span>
+                                            <span>@Model.Order.PaymentType</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="py-2">
+                                            <span class="d-block text-muted">Địa chỉ</span>
+                                            <span>@Model.Order.CustomerAddress</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+                    <div class="border-bottom table-responsive product">
+                        <table class="table table-borderless">
+                            <tbody>
+                                @foreach (var detail in Model.OrderDetails)
+                                {
+                                    <!-- Product 1 -->
+                                    <tr>
+                                        <td width="20%">
+                                            <img src="~/images/@detail.Product.ProImage" width="90">
+                                        </td>
+                                        <td width="60%">
+                                            <span class="font-weight-bold">@detail.Product.ProName</span>
+                                            <div class="product-qty">
+                                                <span class="d-block">Số lượng: @detail.Quantity</span>
+                                            </div>
+                                        </td>
+                                        <td width="20%">
+                                            <div class="text-right">
+                                                <span class="font-weight-bold">@String.Format("{0:N0} VNĐ", @detail.Price)</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </dt>
+                    <div class="row justify-content-end">
+                        <div class="col-md-5">
+                            <table class="table table-borderless totals">
+                                <tbody>
+                                    <!-- Subtotal -->
+                                    <tr>
+                                        <td>
+                                            <div class="text-left">
+                                                <span class="text-muted">Tổng hóa đơn</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                                <span>@String.Format("{0:N0} VNĐ", @ViewBag.TotalPrice)</span>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.CustomerName)
-        </dd>
+                                    <!-- Discount -->
+                                    <tr>
+                                        <td>
+                                            <div class="text-left">
+                                                <span class="text-muted">Giảm giá</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                                <span class="text-success">- 0 VNĐ</span>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerPhone)
-        </dt>
+                                    <!-- Subtotal -->
+                                    <tr class="border-top border-bottom">
+                                        <td>
+                                            <div class="text-left">
+                                                <span class="font-weight-bold">Tổng thanh toán</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                                <span class="font-weight-bold">@String.Format("{0:N0} VNĐ", @ViewBag.TotalPrice)</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CustomerPhone)
-        </dd>
+                    <p>Trải nghiệm của khách hàng luôn là sự ưu tiên hàng đầu của chúng tôi!</p>
+                    <p class="font-weight-bold mb-0">Cảm ơn bạn đã ủng hộ!</p>
+                    <span>Burger King</span>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerEmail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerAddress)
-        </dd>
-
-    </dl>
+                <div class="card-footer d-flex justify-content-between p-3">
+                    <span>Bạn cần trợ giúp? <a href="@Url.Action("Index","Contact")">Liên hệ</a></span>
+                    <span>Burger <i class="fas fa-hamburger" style="font-size: 16px; color: #666565"></i> King</span>
+                </div>
+            </div>
+            <a href="@Url.Action("Payment", "Payment", new { id = orderId, total = totalPrice })" class="btn btn-primary mt-4 py-2" style="width:100%; color:#fff; display: @(Model.Order.Status == "Đang chờ thanh toán" ? "block" : "none")">Thanh toán ngay</a>
+        </div>
+    </div>
 </div>
+
+
 

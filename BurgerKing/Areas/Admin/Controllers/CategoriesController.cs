@@ -20,21 +20,6 @@ namespace BurgerKing.Areas.Admin.Controllers
             return View(db.Categories.ToList());
         }
 
-        // GET: Admin/Categories/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
-
         // GET: Admin/Categories/Create
         public ActionResult Create()
         {

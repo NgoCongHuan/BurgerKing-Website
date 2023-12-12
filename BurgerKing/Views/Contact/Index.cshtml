@@ -43,13 +43,13 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="name" placeholder="Your Name">
+                                        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
                                         <label for="name">Họ và Tên</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="email" placeholder="Your Email">
+                                        <input type="text" class="form-control" name="email" placeholder="Your Email" required>
                                         <label for="email">Email</label>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" name="message" style="height: 150px"></textarea>
+                                        <textarea class="form-control" placeholder="Leave a message here" name="message" style="height: 150px" required></textarea>
                                         <label for="message">Nội dung</label>
                                     </div>
                                 </div>
@@ -77,6 +77,61 @@
     </div>
     <!-- Contact End -->
 }
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> <!-- Make sure jQuery is included before this script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    $(document).ready(function () {
+        // Hàm xử lý khi form được submit
+        $('form').submit(function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+            // Hiển thị SweetAlert2 loading animation
+            Swal.fire({
+                title: 'Phản hồi của bạn đang được gửi đi...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                },
+                showConfirmButton: false,
+                customClass: {
+                    loader: 'custom-loader-class' // Custom class for the loader
+                }
+            });
+
+            // Gọi action để xử lý phản hồi
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function () {
+                    // Đóng SweetAlert2 loading animation
+                    Swal.close();
+
+                    // Hiển thị thông báo thành công bằng SweetAlert2
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Phản hồi đã được gửi thành công!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                },
+                error: function () {
+                    // Đóng SweetAlert2 loading animation
+                    Swal.close();
+
+                    // Hiển thị thông báo lỗi nếu có lỗi xảy ra
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Đã có lỗi xảy ra!'
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 
 @section scripts{
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

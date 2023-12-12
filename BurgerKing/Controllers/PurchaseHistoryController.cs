@@ -18,18 +18,32 @@ namespace BurgerKing.Controllers
             return View();
         }
 
-        public ActionResult ViewOrder (int? id)
+        public ActionResult ViewOrder(int? id)
         {
+            // Khởi tạo 2 đối tượng Order và OrderDetail tương ứng
             Order order = db.Orders.Find(id);
+            List<OrderDetail> orderDetails = db.OrderDetails.Where(o => o.OrderId == id).ToList();
 
+            // Kiểm tra nếu là null thì trả về lỗi
             if (order == null)
             {
                 // Return a partial view with a message indicating no order was found
                 return PartialView("_OrderNotFound");
             }
 
-            // Return the partial view with the order data
-            return PartialView("_ViewOrder", order);
+            // Tính tổng số tiền thanh toán
+            int? totalPrice = (int?)db.OrderDetails.Where(o => o.OrderId == id).Sum(o => o.Price * o.Quantity);
+            ViewBag.TotalPrice = totalPrice;
+
+            // Khởi tạo đối tượng Order_OrderDetail
+            Order_OrderDetail ord_ordDetails = new Order_OrderDetail()
+            {
+                Order = order,
+                OrderDetails = orderDetails
+            };
+
+            // Trả về Partial View nếu có đơn hàng
+            return PartialView("_ViewOrder", ord_ordDetails);
         }
     }
 }
