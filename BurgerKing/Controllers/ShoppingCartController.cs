@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.Net.Mail;
 using Common;
+using Newtonsoft.Json;
 
 namespace BurgerKing.Controllers
 {
@@ -119,6 +120,19 @@ namespace BurgerKing.Controllers
         }
         public ActionResult CheckOut()
         {
+            string accountInfo = Request.Cookies["AccountInfo"]?.Value;
+
+            if (!string.IsNullOrEmpty(accountInfo))
+            {
+                Account acc = JsonConvert.DeserializeObject<Account>(accountInfo);
+
+                if (acc != null)
+                {
+                    ViewBag.Email = acc.Email;
+                    ViewBag.Phone = acc.Phone;
+                }
+            }
+
             return View();
         }
 
@@ -126,6 +140,8 @@ namespace BurgerKing.Controllers
         public ActionResult ProcessOrder(FormCollection field)
         {
             List<Cart> ListCart = (List<Cart>)Session[strCart];
+
+            HttpCookie CusCookies = Request.Cookies["emailor"];
 
             //1. Lưu Hóa đơn vào bảng Order
             var order = new BurgerKing.Models.Order()

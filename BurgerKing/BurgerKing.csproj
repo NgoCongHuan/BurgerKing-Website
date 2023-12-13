@@ -598,6 +598,7 @@
     <Folder Include="Areas\client\Controllers\" />
     <Folder Include="Areas\client\Data\" />
     <Folder Include="Areas\client\Views\Shared\" />
+    <Folder Include="Views\Cookies\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

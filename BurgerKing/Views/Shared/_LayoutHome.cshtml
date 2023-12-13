@@ -62,7 +62,7 @@
                             <a class="nav-item nav-link" href="@Url.Action("Index","PurchaseHistory")">Lịch sử đơn hàng</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@User.Identity.Name</a>
-                                <div class="dropdown-menu m-0">
+                                <div class="dropdown-menu m-0 dropdown-account" style="right: 0;">
                                     <a href="" class="dropdown-item">Tài khoản</a>
                                     @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
                                 </div>

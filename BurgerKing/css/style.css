@@ -768,3 +768,11 @@
 .productinfo:hover img {
     transform: scale(1.1);
 }
+
+.dropdown-item:hover {
+    background-color: #FEA116;
+}
+
+.dropdown-account {
+    text-align: center;
+}

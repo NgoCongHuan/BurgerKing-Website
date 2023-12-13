@@ -5,34 +5,6 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-
-@section scripts{
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-        $(document).ready(function () {
-            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
-            updateCartItemCount();
-
-            // Hàm để gọi action và cập nhật số lượng trên giao diện
-            function updateCartItemCount() {
-                $.ajax({
-                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
-                    type: 'GET',
-                    success: function (data) {
-                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
-                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
-
-                        // Cập nhật giao diện người dùng với số lượng mới
-                        $('#cart_count').text(data.itemCount);
-                    },
-                    error: function () {
-                        console.log('Lỗi khi gọi action');
-                    }
-                });
-            }
-        });
-    </script>
-}
 @using (Html.BeginForm("Login", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -73,7 +45,7 @@
                                     <button class="btn btn-primary w-100 py-3" type="submit">Đăng nhập</button>
                                 </div>
                                 <div class="col-12">
-                                    <a href="/signup.html" class="exist-account">Bạn chưa có tài khoản ? Đăng kí ngay</a>
+                                    <a href="@Url.Action("Register","Account")" class="exist-account">Bạn chưa có tài khoản ? Đăng kí ngay</a>
                                 </div>
                             </div>
                         </form>
@@ -83,4 +55,32 @@
         </div>
     </div>
     <!-- Sign in End -->
+}
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+        });
+    </script>
 }

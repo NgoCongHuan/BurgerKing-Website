@@ -14,6 +14,7 @@ namespace BurgerKing.Controllers
         public ActionResult Index()
         {
             ViewBag.OrderQuantity = dbContext.Orders.Count();
+            ViewBag.AccountQuantity = dbContext.Accounts.Count();
             return View();
         }
     }

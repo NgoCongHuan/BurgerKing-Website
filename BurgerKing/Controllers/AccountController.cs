@@ -9,6 +9,7 @@ using System.Text;
 using BurgerKing.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using Newtonsoft.Json;
 
 namespace BurgerKing.Controllers
 {
@@ -37,8 +38,30 @@ namespace BurgerKing.Controllers
                         bool isValidAccount = dbContext.Accounts.Any(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower());
                         if (isValidAccount)
                         {
-                            FormsAuthentication.SetAuthCookie(emailOrPhoneNumber, false);
-                            return RedirectToAction("Index", "Home");
+
+                            string name = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault();
+                            FormsAuthentication.SetAuthCookie(name, false);
+
+                            // Truyền đối tượng vào Cookie thông qua Json
+                            HttpCookie cookie = new HttpCookie("AccountInfo");
+                            var account = new Account()
+                            {
+                                Email = emailOrPhoneNumber,
+                                Phone = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Phone).FirstOrDefault()
+                            };
+                            string accountJson = JsonConvert.SerializeObject(account);
+                            cookie.Value = accountJson;
+                            Response.Cookies.Add(cookie);
+
+                            int? RoleId = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.RoleId).FirstOrDefault();
+                            if (RoleId == 1)
+                            {
+                                return RedirectToAction("Index", "Products", new { area = "Admin" });
+                            }
+                            if (RoleId == 3)
+                            {
+                                return RedirectToAction("Index","Home");
+                            }
                         }
                     }
                     else if (IsPhoneNumber(emailOrPhoneNumber))
@@ -47,8 +70,17 @@ namespace BurgerKing.Controllers
                         bool isValidAccount = dbContext.Accounts.Any(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower());
                         if (isValidAccount)
                         {
-                            FormsAuthentication.SetAuthCookie(emailOrPhoneNumber, false);
-                            return RedirectToAction("Index", "Home");
+                            string name = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault();
+                            FormsAuthentication.SetAuthCookie(name, false);
+                            int? RoleId = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.RoleId).FirstOrDefault();
+                            if (RoleId == 1)
+                            {
+                                return RedirectToAction("Index","Products", new { area = "Admin" });
+                            }
+                            if (RoleId == 3)
+                            {
+                                return RedirectToAction("Index","Home");
+                            }
                         }
                     }
                     ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
@@ -122,10 +154,28 @@ namespace BurgerKing.Controllers
             }
         }
 
+
         // Đăng xuất
+        private string strCart = "Cart";
         public ActionResult Logout()
         {
+            // Xóa giỏ hàng khi đăng xuất
+            if (Session[strCart] != null)
+            {
+                Session.Remove(strCart);
+            }
+
+            // Xóa thông tin của AccountInfo
+            if (Request.Cookies["AccountInfo"] != null)
+            {
+                var infock = new HttpCookie("AccountInfo");
+                infock.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(infock);
+            }
+
+            // Xóa thông tin xác thực
             FormsAuthentication.SignOut();
+
             return RedirectToAction("Index", "Home");
         }
 
