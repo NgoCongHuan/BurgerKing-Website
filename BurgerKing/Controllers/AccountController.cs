@@ -38,14 +38,14 @@ namespace BurgerKing.Controllers
                         bool isValidAccount = dbContext.Accounts.Any(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower());
                         if (isValidAccount)
                         {
-
-                            string name = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault();
-                            FormsAuthentication.SetAuthCookie(name, false);
+                            // Xác thực người dùng
+                            FormsAuthentication.SetAuthCookie(emailOrPhoneNumber, false);
 
                             // Truyền đối tượng vào Cookie thông qua Json
                             HttpCookie cookie = new HttpCookie("AccountInfo");
                             var account = new Account()
                             {
+                                Name = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault(),
                                 Email = emailOrPhoneNumber,
                                 Phone = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Phone).FirstOrDefault()
                             };
@@ -53,6 +53,7 @@ namespace BurgerKing.Controllers
                             cookie.Value = accountJson;
                             Response.Cookies.Add(cookie);
 
+                            // Kiểm tra quyền truy cập
                             int? RoleId = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.RoleId).FirstOrDefault();
                             if (RoleId == 1)
                             {
@@ -70,8 +71,22 @@ namespace BurgerKing.Controllers
                         bool isValidAccount = dbContext.Accounts.Any(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower());
                         if (isValidAccount)
                         {
-                            string name = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault();
-                            FormsAuthentication.SetAuthCookie(name, false);
+                            // Xác thực người dùng
+                            FormsAuthentication.SetAuthCookie(emailOrPhoneNumber, false);
+
+                            // Truyền đối tượng vào Cookie thông qua Json
+                            HttpCookie cookie = new HttpCookie("AccountInfo");
+                            var account = new Account()
+                            {
+                                Name = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault(),
+                                Email = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Email).FirstOrDefault(),
+                                Phone = emailOrPhoneNumber
+                            };
+                            string accountJson = JsonConvert.SerializeObject(account);
+                            cookie.Value = accountJson;
+                            Response.Cookies.Add(cookie);
+
+                            // Kiểm tra quyền truy cập
                             int? RoleId = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.RoleId).FirstOrDefault();
                             if (RoleId == 1)
                             {

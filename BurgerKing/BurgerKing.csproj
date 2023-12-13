@@ -390,6 +390,7 @@
     <Compile Include="Others\MoMoSecurity.cs" />
     <Compile Include="Others\PaymentRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -598,7 +599,6 @@
     <Folder Include="Areas\client\Controllers\" />
     <Folder Include="Areas\client\Data\" />
     <Folder Include="Areas\client\Views\Shared\" />
-    <Folder Include="Views\Cookies\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

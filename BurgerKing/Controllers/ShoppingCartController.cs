@@ -48,7 +48,7 @@ namespace BurgerKing.Controllers
                 {
                     new Cart(dbContext.Products.Find(Id), 1)
                 };
-                Session[strCart] = ListCart;
+                Session[strCart] = ListCart;    
             }
             else
             {
@@ -76,6 +76,7 @@ namespace BurgerKing.Controllers
             }
             return -1;
         }
+
         public ActionResult RemoveItem(int? Id)
         {
             if (Id == null)
@@ -107,9 +108,6 @@ namespace BurgerKing.Controllers
             }
             Session[strCart] = ListCart;
 
-            // Cập nhật số lượng sản phẩm trên icon
-            // Session["CartItemCount"] = GetCartItemCount();
-
             return RedirectToAction("Index");
         }
         public ActionResult ClearCart()
@@ -128,6 +126,7 @@ namespace BurgerKing.Controllers
 
                 if (acc != null)
                 {
+                    ViewBag.Name = acc.Name;
                     ViewBag.Email = acc.Email;
                     ViewBag.Phone = acc.Phone;
                 }
@@ -140,8 +139,6 @@ namespace BurgerKing.Controllers
         public ActionResult ProcessOrder(FormCollection field)
         {
             List<Cart> ListCart = (List<Cart>)Session[strCart];
-
-            HttpCookie CusCookies = Request.Cookies["emailor"];
 
             //1. Lưu Hóa đơn vào bảng Order
             var order = new BurgerKing.Models.Order()
