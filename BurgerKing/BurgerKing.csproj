@@ -329,6 +329,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
@@ -366,7 +367,6 @@
       <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Contact.cs" />
-    <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
     </Compile>
@@ -382,7 +382,6 @@
     <Compile Include="Models\Product_Category.cs">
       <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RegisterView.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Role.cs">
       <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
@@ -484,6 +483,11 @@
     <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <Content Include="Areas\client\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Accounts\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="scss\bootstrap.scss" />
     <Content Include="scss\bootstrap\scss\bootstrap-grid.scss" />
@@ -586,6 +590,7 @@
     <Content Include="Views\Shared\_OrderNotFound.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

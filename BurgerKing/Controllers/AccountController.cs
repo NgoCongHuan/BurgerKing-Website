@@ -78,8 +78,8 @@ namespace BurgerKing.Controllers
                             HttpCookie cookie = new HttpCookie("AccountInfo");
                             var account = new Account()
                             {
-                                Name = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault(),
-                                Email = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Email).FirstOrDefault(),
+                                Name = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault(),
+                                Email = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Email).FirstOrDefault(),
                                 Phone = emailOrPhoneNumber
                             };
                             string accountJson = JsonConvert.SerializeObject(account);

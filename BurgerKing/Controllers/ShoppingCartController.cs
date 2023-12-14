@@ -66,6 +66,37 @@ namespace BurgerKing.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult OrderNowQuantity(int? Id, int Quantity)
+        {
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (Session[strCart] == null)
+            {
+                List<Cart> ListCart = new List<Cart>
+                {
+                    new Cart(dbContext.Products.Find(Id), Quantity)
+                };
+                Session[strCart] = ListCart;
+            }
+            else
+            {
+                List<Cart> ListCart = (List<Cart>) Session[strCart];
+                int check = IsExistingCheck(Id);
+                if (check == -1)
+                    ListCart.Add(new Cart(dbContext.Products.Find(Id), Quantity));
+                else
+                    ListCart[check].Quantity += Quantity;
+
+                // Cập nhật số lượng sản phẩm trong giỏ hàng
+                Session[strCart] = ListCart;
+            }
+
+            return RedirectToAction("Index");
+        }
+
         private int IsExistingCheck(int? Id)
         {
             List<Cart> ListCart = (List<Cart>)Session[strCart];

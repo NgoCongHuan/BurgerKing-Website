@@ -1,0 +1,242 @@
+﻿@model BurgerKing.Models.Product_Category
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Menu -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Thực đơn</h5>
+            <h1 class="mb-5">Các món ăn của chúng tôi</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="row px-xl-5">
+            <!-- Category -->
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Danh mục</h2>
+                    @Html.Partial("_Categories")
+                </div>
+            </div>
+            <!-- Category -->
+            <div class="col-sm-5 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <img class="w-100 h-100" src="~/images/@Model.ProImage" alt="Image">
+                </div>
+            </div>
+
+            <div class="col-sm-4 h-auto mb-30">
+                <div class="h-100 p-30">
+                    <h3>@Model.ProName</h3>
+                    <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star-half-alt"></small>
+                            <small class="far fa-star"></small>
+                        </div>
+                        <small class="pt-1">(99 Reviews)</small>
+                    </div>
+                    <h3 class="font-weight-semi-bold mb-4">@String.Format("{0:N0} VNĐ", Model.ProPrice)</h3>
+                    <p class="mb-4">
+                        @Model.ProDes
+                    </p>
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                        <div class="input-group quantity mr-3" style="width: 130px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary btn-minus cart_quantity_up">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control text-center cart_quantity_input" value="1">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary btn-plus cart_quantity_down">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="ajax-add-to-cart-quantity btn btn-primary px-3" style="margin-left: 30px;">
+                            <i class="fa fa-shopping-cart mr-1"></i> Add To Cart
+                        </button>
+                    </div>
+                    <div class="d-flex pt-2">
+                        <strong class="text-dark mr-2">Share on:</strong>
+                        <div class="d-inline-flex">
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="p-30">
+                    <div class="nav nav-tabs mb-4">
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-3" style="background-color: #F5F5ED">Reviews (0)</a>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-pane-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">1 review for "Product Name"</h4>
+                                    <div class="media mb-4">
+                                        <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                        <div class="media-body">
+                                            <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                            <div class="text-primary mb-2">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">Leave a review</h4>
+                                    <small>Your email address will not be published. Required fields are marked *</small>
+                                    <div class="d-flex my-3">
+                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <div class="text-primary">
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="message">Your Review *</label>
+                                            <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">Your Name *</label>
+                                            <input type="text" class="form-control" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Your Email *</label>
+                                            <input type="email" class="form-control" id="email">
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Shop Detail End -->
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".btn-plus").click(function () {
+            var currentVal = parseInt($(this).parent().prev().val());
+            if (!isNaN(currentVal)) {
+                $(this).parent().prev().val(currentVal + 1);
+            }
+        });
+
+        $(".btn-minus").click(function () {
+            var currentVal = parseInt($(this).parent().next().val());
+            if (!isNaN(currentVal) && currentVal > 1) {
+                $(this).parent().next().val(currentVal - 1);
+            }
+        });
+    });
+</script>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+
+            $(".ajax-add-to-cart-quantity").click(function () {
+                // Truy cập giá trị của input
+                var quantity = $(".cart_quantity_input").val();
+                var id = @Model.ProId;
+
+                console.log("Số lượng: ", quantity)
+
+                console.log("ID: ", id)
+
+                $.ajax({
+                    url: "/ShoppingCart/OrderNowQuantity",
+                    data: {
+                        id: id,
+                        quantity: quantity
+                    },
+                    success: function (result) {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm giỏ hàng thành công',
+                            showConfirmButton: false,
+                            timer: 800,
+                            // Gọi hàm cập nhật số lượng mục trong giỏ hàng
+                            onClose: function () {
+                                updateCartItemCount();
+                            }
+                        });
+                    },
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm giỏ hàng thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 800
+                        });
+                    }
+                });
+            });
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+        });
+    </script>
+}

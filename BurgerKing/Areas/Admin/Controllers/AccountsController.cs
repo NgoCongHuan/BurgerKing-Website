@@ -7,115 +7,115 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BurgerKing.Models;
-using PagedList;
 
 namespace BurgerKing.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class OrdersController : Controller
+    public class AccountsController : Controller
     {
         private BurgerKingDBContext db = new BurgerKingDBContext();
 
-        /// GET: Admin/Orders
-        public ActionResult Index(int? page)
+        // GET: Admin/Accounts
+        public ActionResult Index()
         {
-            var pageNumber = page ?? 1;
-            var pageSize = 5;
-            var orders = db.Orders.OrderBy(p => p.OrderId).ToPagedList(pageNumber, pageSize);
-            return View(orders); // Return the 'orders' variable instead of 'db.Orders.ToList()'
+            var accounts = db.Accounts.Include(a => a.Role);
+            return View(accounts.ToList());
         }
 
-        // GET: Admin/Orders/Details/5
+        // GET: Admin/Accounts/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            Account account = db.Accounts.Find(id);
+            if (account == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(account);
         }
 
-        // GET: Admin/Orders/Create
+        // GET: Admin/Accounts/Create
         public ActionResult Create()
         {
+            ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName");
             return View();
         }
 
-        // POST: Admin/Orders/Create
+        // POST: Admin/Accounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrderId,OrderName,OrderDate,PaymentType,Status,CustomerName,CustomerPhone,CustomerEmail,CustomerAddress")] Order order)
+        public ActionResult Create([Bind(Include = "Id,Name,Email,Phone,Password,RoleId")] Account account)
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
+                db.Accounts.Add(account);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(order);
+            ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName", account.RoleId);
+            return View(account);
         }
 
-        // GET: Admin/Orders/Edit/5
+        // GET: Admin/Accounts/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            Account account = db.Accounts.Find(id);
+            if (account == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName", account.RoleId);
+            return View(account);
         }
 
-        // POST: Admin/Orders/Edit/5
+        // POST: Admin/Accounts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderId,OrderName,OrderDate,PaymentType,Status,CustomerName,CustomerPhone,CustomerEmail,CustomerAddress")] Order order)
+        public ActionResult Edit([Bind(Include = "Id,Name,Email,Phone,Password,RoleId")] Account account)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
+                db.Entry(account).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(order);
+            ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName", account.RoleId);
+            return View(account);
         }
 
-        // GET: Admin/Orders/Delete/5
+        // GET: Admin/Accounts/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            Account account = db.Accounts.Find(id);
+            if (account == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(account);
         }
 
-        // POST: Admin/Orders/Delete/5
+        // POST: Admin/Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
+            Account account = db.Accounts.Find(id);
+            db.Accounts.Remove(account);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

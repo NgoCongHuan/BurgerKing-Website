@@ -26,7 +26,7 @@
                             <h4 class="card-title">Product Image</h4>
                             <img id="previewImage" src="#" alt="Preview Image" style="width: 100%; height: auto; display: none;" />
                             <br />
-                            <input type="file" class="" name="file" required="required" id="file" onchange="displayImage(this)" />
+                            <input type="file" class="dropdown-toggle" name="file" required="required" id="file" onchange="displayImage(this)" style = "background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" />
                             @Html.ValidationMessageFor(model => model.ProImage, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="form-group">
                                 <h4 class="card-title">Category</h4>
-                                @Html.DropDownList("CatId", null, new { htmlAttributes = new { @class = "form-control form-control-lg" } })
+                                @Html.DropDownList("CatId", null, htmlAttributes: new { @class = "dropdown-toggle", style = "background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" })
                                 @Html.ValidationMessageFor(model => model.CatId, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">

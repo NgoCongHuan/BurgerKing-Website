@@ -1,0 +1,68 @@
+﻿@model BurgerKing.Models.Account
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title"> Edit Account </h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Image</h4>
+                        <img width="100%" height="auto" src="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="forms-sample">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="form-group">
+                                <h4 class="card-title">@Html.DisplayNameFor(model => model.Id)</h4>
+                                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <h4 class="card-title">@Html.DisplayNameFor(model => model.Name)</h4>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <h4 class="card-title">@Html.DisplayNameFor(model => model.Email)</h4>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <h4 class="card-title">@Html.DisplayNameFor(model => model.Phone)</h4>
+                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <h4 class="card-title">@Html.DisplayNameFor(model => model.Password)</h4>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <h4 class="card-title">@Html.DisplayNameFor(model => model.Role.RoleName)</h4>
+                                @Html.DropDownList("RoleId", null, htmlAttributes: new { @class = "dropdown-toggle", style = "background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" })
+                                @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+                            </div>
+                            <button type="submit" value="Save" class="btn btn-gradient-success btn-fw">Save</button>
+                            <button class="btn btn-light"> @Html.ActionLink("Cancel", "Index")</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -11,6 +11,7 @@ using System.IO;
 
 namespace BurgerKing.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private BurgerKingDBContext db = new BurgerKingDBContext();
