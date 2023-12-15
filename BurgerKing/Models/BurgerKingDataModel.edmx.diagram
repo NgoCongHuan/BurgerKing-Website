@@ -9,13 +9,13 @@
         <EntityTypeShape EntityType="Models.Product" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.Product_Category" Width="1.5" PointX="5.625" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="Models.FK_SP_LSP" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Models.OrderDetail" Width="1.5" PointX="9.5" PointY="0.75" />
-        <AssociationConnector Association="Models.FK__OrderDeta__Produ__5FB337D6" />
-        <EntityTypeShape EntityType="Models.Order" Width="1.5" PointX="9.5" PointY="3.625" />
-        <AssociationConnector Association="Models.FK__OrderDeta__Order__5EBF139D" />
         <EntityTypeShape EntityType="Models.Account" Width="1.5" PointX="14" PointY="1.25" />
-        <EntityTypeShape EntityType="Models.Role" Width="1.5" PointX="11.625" PointY="1.25" />
+        <EntityTypeShape EntityType="Models.Role" Width="1.5" PointX="12" PointY="1.125" />
         <AssociationConnector Association="Models.FK__Accounts__RoleId__7D439ABD" />
+        <EntityTypeShape EntityType="Models.Order" Width="1.5" PointX="9.625" PointY="3.125" />
+        <EntityTypeShape EntityType="Models.OrderDetail" Width="1.5" PointX="9.625" PointY="0.5" />
+        <AssociationConnector Association="Models.FK_OrderDetail_Order" />
+        <AssociationConnector Association="Models.FK_OrderDetail_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

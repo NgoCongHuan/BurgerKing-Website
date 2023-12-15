@@ -1,76 +1,98 @@
 ﻿@model BurgerKing.Models.Order
-
+@using BurgerKing.Models;
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PaymentType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerPhone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerPhone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerEmail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerAddress)
-        </dd>
-
-    </dl>
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title"> Order and Order Details</h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-7 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <h4 class="card-title">@Html.DisplayNameFor(model => model.OrderId)</h4>
+                        <span class="form-control">
+                            @Html.DisplayFor(model => model.OrderId)
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="card-title">@Html.DisplayNameFor(model => model.OrderDate)</h4>
+                        <span class="form-control">
+                            @Html.DisplayFor(model => model.OrderDate)
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="card-title">@Html.DisplayNameFor(model => model.PaymentType)</h4>
+                        <span class="form-control">
+                            @Html.DisplayFor(model => model.PaymentType)
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="card-title">@Html.DisplayNameFor(model => model.Status)</h4>
+                        <span class="form-control">
+                            @Html.DisplayFor(model => model.Status)
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="card-title">@Html.DisplayNameFor(model => model.CustomerName)</h4>
+                        <span class="form-control">
+                            @Html.DisplayFor(model => model.CustomerName)
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="card-title">@Html.DisplayNameFor(model => model.CustomerEmail)</h4>
+                        <span class="form-control">
+                            @Html.DisplayFor(model => model.CustomerEmail)
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="card-title">@Html.DisplayNameFor(model => model.CustomerPhone)</h4>
+                        <span class="form-control">
+                            @Html.DisplayFor(model => model.CustomerPhone)
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="card-title">@Html.DisplayNameFor(model => model.CustomerAddress)</h4>
+                        <span class="form-control">
+                            @Html.DisplayFor(model => model.CustomerAddress)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Image </th>
+                                <th> Name </th>
+                                <th> Quantity </th>
+                                <th> Price </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var pro in Model.OrderDetails)
+                            {
+                                <tr>
+                                    <td> <img src="~/images/@pro.Product.ProImage" class="img-fluid" /> </td>
+                                    <td> @pro.Product.ProName </td>
+                                    <td> @pro.Quantity </td>
+                                    <td> @pro.Price </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-gradient-primary me-2">@Html.ActionLink("Edit", "Edit", new { id = Model.OrderId })</button>
+    <button class="btn btn-light"> @Html.ActionLink("Cancel", "Index")</button>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

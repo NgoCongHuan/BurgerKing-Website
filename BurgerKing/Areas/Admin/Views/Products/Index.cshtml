@@ -8,12 +8,12 @@
 <div class="content-wrapper">
     <div class="page-header">
         <button id="button-create" type="button" class="btn btn-gradient-primary btn-icon-text">
-            <i class="mdi mdi-library-plus btn-icon-prepend"></i>Create
+            <i class="mdi mdi-library-plus btn-icon-prepend"></i>Thêm sản phẩm mới
         </button>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Basic tables</li>
+                <li class="breadcrumb-item"><a href="#">Quản lý thông tin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
             </ol>
         </nav>
     </div>
@@ -21,18 +21,18 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Product</h4>
+                    <h4 class="card-title"><b>Thông tin sản phẩm</b></h4>
                     </p>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>@Html.DisplayNameFor(model => model.ProImage)</th>
-                                    <th>@Html.DisplayNameFor(model => model.ProName)</th>
-                                    <th>@Html.DisplayNameFor(model => model.ProPrice)</th>
-                                    <th>Edit</th>
-                                    <th>Detail</th>
-                                    <th>Delete</th>
+                                    <th>Ảnh sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>Sửa</th>
+                                    <th>Chi tiết</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,9 +42,9 @@
                                         <td><img src="~/images/@Html.DisplayFor(modelItem => item.ProImage)" /></td>
                                         <td>@Html.DisplayFor(modelItem => item.ProName)</td>
                                         <td>@Html.DisplayFor(modelItem => item.ProPrice)</td>
-                                        <td>@Html.ActionLink("Edit", "Edit", new { id = item.ProId })</td>
-                                        <td>@Html.ActionLink("Details", "Details", new { id = item.ProId })</td>
-                                        <td>@Html.ActionLink("Delete", "Delete", new { id = item.ProId })</td>
+                                        <td>@Html.ActionLink("Sửa", "Edit", new { id = item.ProId })</td>
+                                        <td>@Html.ActionLink("Chi tiết", "Details", new { id = item.ProId })</td>
+                                        <td>@Html.ActionLink("Xóa", "Delete", new { id = item.ProId })</td>
                                     </tr>
                                 }
                             </tbody>

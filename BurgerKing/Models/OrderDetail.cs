@@ -14,12 +14,12 @@ namespace BurgerKing.Models
     
     public partial class OrderDetail
     {
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
         public int ProductId { get; set; }
         public Nullable<double> Price { get; set; }
         public Nullable<int> Quantity { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

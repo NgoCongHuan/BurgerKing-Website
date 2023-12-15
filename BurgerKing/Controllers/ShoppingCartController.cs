@@ -11,6 +11,8 @@ using System.Configuration;
 using System.Net.Mail;
 using Common;
 using Newtonsoft.Json;
+using System.Data.Entity.Validation;
+
 
 namespace BurgerKing.Controllers
 {
@@ -171,9 +173,18 @@ namespace BurgerKing.Controllers
         {
             List<Cart> ListCart = (List<Cart>)Session[strCart];
 
+            // Tọa một Guid mới
+            Guid newGuid = Guid.NewGuid();
+
+            // Chuyển đổi Guid thành chuỗi và loại bỏ ký tự gạch nối
+            string orderCode = newGuid.ToString("N");
+
+            orderCode = orderCode.Substring(0, 10);
+
             //1. Lưu Hóa đơn vào bảng Order
             var order = new BurgerKing.Models.Order()
             {
+                OrderId = orderCode,
                 CustomerName = field["cusName"],
                 CustomerPhone = field["cusPhone"],
                 CustomerEmail = field["cusEmail"],
@@ -183,7 +194,27 @@ namespace BurgerKing.Controllers
                 PaymentType = "",
                 Status = OrderStatus.Processing
             };
+
+            // Thêm Order mới vào context
             dbContext.Orders.Add(order);
+
+            // Lưu thay đổi để có OrderId
+            dbContext.SaveChanges();
+
+            // Tạo và thêm OrderDetails
+            foreach (Cart cart in ListCart)
+            {
+                OrderDetail orderDetail = new OrderDetail()
+                {
+                    OrderId = order.OrderId,
+                    ProductId = cart.Product.ProId,
+                    Quantity = Convert.ToInt32(cart.Quantity),
+                    Price = Convert.ToDouble(cart.Product.ProPrice)
+                };
+                dbContext.OrderDetails.Add(orderDetail);
+            }
+
+            // Lưu thay đổi cho OrderDetails
             dbContext.SaveChanges();
 
             // Gán giá trị của OrderId
@@ -197,20 +228,6 @@ namespace BurgerKing.Controllers
 
             // ViewBag hiển thị tổng số tiền của đơn hàng
             ViewBag.TotalPrice = TotalPrice;
-
-            //2. Lưu Chi tiết hóa đơn vào bảng OrderDetail
-            foreach (Cart cart in ListCart)
-            {
-                OrderDetail orderDetail = new OrderDetail()
-                {
-                    OrderId = order.OrderId,
-                    ProductId = cart.Product.ProId,
-                    Quantity = Convert.ToInt32(cart.Quantity),
-                    Price = Convert.ToDouble(cart.Product.ProPrice)
-                };
-                dbContext.OrderDetails.Add(orderDetail);
-                dbContext.SaveChanges();
-            }
 
             return View("OrderSuccess");
         }

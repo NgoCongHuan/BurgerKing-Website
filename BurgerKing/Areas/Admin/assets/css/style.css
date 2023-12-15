@@ -1777,8 +1777,8 @@
     --bs-black-rgb: 0, 0, 0;
     --bs-body-color-rgb: 52, 58, 64;
     --bs-body-bg-rgb: 255, 255, 255;
-    --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bs-font-sans-serif: 'Roboto', sans-serif;
+    --bs-font-monospace: 'Roboto', sans-serif;
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
     --bs-body-font-family: var(--bs-font-sans-serif);
     --bs-body-font-size: 1rem;
@@ -3512,7 +3512,7 @@ progress {
 .col-form-label-sm {
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
-  font-size: 0.875rem; }
+  font-size: 17px; }
 
 .form-text {
   margin-top: 0.25rem;
@@ -3523,7 +3523,7 @@ progress {
   display: block;
   width: 100%;
   padding: 0.94rem 1.375rem;
-  font-size: 0.8125rem;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1;
   color: #212529;
@@ -3637,7 +3637,7 @@ progress {
 .form-control-sm {
   min-height: 2.575rem;
   padding: 0.5rem 0.81rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   border-radius: 0.2rem; }
   .form-control-sm::file-selector-button {
     padding: 0.5rem 0.81rem;
@@ -3733,7 +3733,7 @@ textarea.form-control-lg {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 0.5rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   border-radius: 0.2rem; }
 
 .form-select-lg {
@@ -4011,7 +4011,7 @@ textarea.form-control-lg {
   -ms-flex-align: center;
   align-items: center;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8125rem;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1;
   color: #212529;
@@ -4034,7 +4034,7 @@ textarea.form-control-lg {
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn {
   padding: 0.5rem 0.81rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   border-radius: 0.2rem; }
 
 .input-group-lg > .form-select,
@@ -4071,7 +4071,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   color: #fff;
   background-color: rgba(25, 135, 84, 0.9);
   border-radius: 0.25rem; }
@@ -4147,7 +4147,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   color: #fff;
   background-color: rgba(220, 53, 69, 0.9);
   border-radius: 0.25rem; }
@@ -4223,8 +4223,8 @@ textarea.form-control-lg {
   user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
-  padding: 0.875rem 2.5rem;
-  font-size: 0.875rem;
+  padding: 17px 2.5rem;
+  font-size: 17px;
   border-radius: 0.1875rem;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -4680,12 +4680,12 @@ textarea.form-control-lg {
 
 .btn-lg, .btn-group-lg > .btn {
   padding: 1rem 3rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   border-radius: 0.1875rem; }
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.5rem 0.81rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   border-radius: 0.1875rem; }
 
 .fade {
@@ -4942,7 +4942,7 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.875rem;
+  font-size: 17px;
   color: #343a40;
   white-space: nowrap; }
 
@@ -5926,7 +5926,7 @@ textarea.form-control-lg {
   flex-wrap: wrap;
   padding: 0.56rem 1.13rem;
   margin-bottom: 1rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   list-style: none;
   background-color: transparent; }
 
@@ -6016,7 +6016,7 @@ textarea.form-control-lg {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.875rem; }
+  font-size: 17px; }
 
 .pagination-sm .page-item:first-child .page-link {
   border-top-left-radius: 0.2rem;
@@ -6491,7 +6491,7 @@ textarea.form-control-lg {
 .toast {
   width: 350px;
   max-width: 100%;
-  font-size: 0.875rem;
+  font-size: 17px;
   pointer-events: auto;
   background-color: rgba(255, 255, 255, 0.85);
   background-clip: padding-box;
@@ -6894,7 +6894,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.875rem;
+  font-size: 17px;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: padding-box;
@@ -11029,31 +11029,6 @@ input:focus {
   border-color: transparent;
   outline: none; }
 
-/* Fonts */
-@font-face {
-  font-family: 'ubuntu-light';
-  src: url("../fonts/Ubuntu/Ubuntu-Light.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/Ubuntu/Ubuntu-Light.woff2") format("woff2"), url("../fonts/Ubuntu/Ubuntu-Light.woff") format("woff"), url("../fonts/Ubuntu/Ubuntu-Light.ttf") format("truetype"); }
-
-@font-face {
-  font-family: 'ubuntu-regular';
-  src: url("../fonts/Ubuntu/Ubuntu-Regular.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/Ubuntu/Ubuntu-Regular.woff2") format("woff2"), url("../fonts/Ubuntu/Ubuntu-Regular.woff") format("woff"), url("../fonts/Ubuntu/Ubuntu-Regular.ttf") format("truetype"); }
-
-@font-face {
-  font-family: 'ubuntu-medium';
-  src: url("../fonts/Ubuntu/Ubuntu-Medium.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/Ubuntu/Ubuntu-Medium.woff2") format("woff2"), url("../fonts/Ubuntu/Ubuntu-Medium.woff") format("woff"), url("../fonts/Ubuntu/Ubuntu-Medium.ttf") format("truetype"); }
-
-@font-face {
-  font-family: 'ubuntu-bold';
-  src: url("../fonts/Ubuntu/Ubuntu-Bold.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/Ubuntu/Ubuntu-Bold.woff2") format("woff2"), url("../fonts/Ubuntu/Ubuntu-Bold.woff") format("woff"), url("../fonts/Ubuntu/Ubuntu-Bold.ttf") format("truetype"); }
-
 .text-twitter {
   color: #2caae1; }
 
@@ -11117,7 +11092,7 @@ input:focus {
 /* Typography */
 body {
   font-size: 1rem;
-  font-family: "ubuntu-regular", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: initial;
   line-height: normal;
   -webkit-font-smoothing: antialiased; }
@@ -11129,10 +11104,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "ubuntu-medium", sans-serif; }
+    font-family: 'Roboto', sans-serif;
+}
 
 p {
-  font-size: 0.875rem; }
+  font-size: 17px; }
 
 h1, .h1,
 .h1 {
@@ -11276,8 +11252,8 @@ pre {
 code {
   padding: 5px;
   color: #fe7c96;
-  font-family: "ubuntu-light", sans-serif;
-  font-size: 0.875rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 17px;
   border-radius: 4px; }
 
 .page-header {
@@ -11312,8 +11288,8 @@ code {
   -moz-transition: all 0.25s ease;
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
-  font-size: calc(0.875rem - 0.05rem);
-  font-family: "ubuntu-regular", sans-serif; }
+  font-size: calc(17px - 0.05rem);
+  font-family: 'Roboto', sans-serif; }
   .footer a {
     color: #1bcfb4;
     font-size: inherit; }
@@ -11412,13 +11388,13 @@ code {
   flex-grow: 1; }
 
 .font-weight-light {
-  font-family: "ubuntu-light", sans-serif; }
+  font-family: 'Roboto', sans-serif; }
 
 .font-weight-bold {
-  font-family: "ubuntu-bold", sans-serif; }
+  font-family: 'Roboto', sans-serif; }
 
 .font-weight-normal {
-  font-family: "ubuntu-regular", sans-serif; }
+  font-family: 'Roboto', sans-serif; }
 
 .image-grouped {
   display: -webkit-box;
@@ -11737,7 +11713,7 @@ code {
     width: 40%; }
     .card-revenue-table .revenue-item .revenue-amount p {
       font-size: 1.25rem;
-      font-family: "roboto", sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 600;
       text-align: right; }
       .rtl .card-revenue-table .revenue-item .revenue-amount p {
@@ -11749,7 +11725,7 @@ code {
   color: color(white); }
   .card-revenue .highlight-text {
     font-size: 1.875rem;
-    font-family: "roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 500; }
   .card-revenue .badge {
     background-color: rgba(255, 255, 255, 0.2);
@@ -11880,7 +11856,7 @@ code {
   font-weight: initial;
   line-height: 1;
   padding: .375rem .5625rem;
-  font-family: "ubuntu-medium", sans-serif; }
+  font-family: 'Roboto', sans-serif; }
   .badge.badge-pill {
     border-radius: 10rem; }
 
@@ -12011,13 +11987,13 @@ code {
   .progress.progress-lg {
     height: 15px; }
   .progress.progress-xl {
-    height: 18px; }
+    height: 17px; }
 
 /* Buttons */
 .btn {
-  font-size: 0.875rem;
+  font-size: 17px;
   line-height: 1;
-  font-family: "ubuntu-bold", sans-serif;
+  font-family: 'Roboto', sans-serif;
   /* Buttons with only icons */
   /* Buttons with icon and text */ }
   .btn i {
@@ -12027,9 +12003,9 @@ code {
   .btn.btn-fw {
     min-width: 150px; }
   .btn.btn-sm, .btn-group-sm > .btn {
-    font-size: 0.875rem; }
+    font-size: 17px; }
   .btn.btn-lg, .btn-group-lg > .btn {
-    font-size: 0.875rem; }
+    font-size: 17px; }
   .btn.btn-xs {
     padding: 0.5rem 0.75rem;
     font-size: 0.625rem; }
@@ -12689,14 +12665,14 @@ code {
 .breadcrumb {
   border: 1px solid #ebedf2; }
   .breadcrumb .breadcrumb-item {
-    font-size: 0.875rem; }
+    font-size: 17px; }
     .breadcrumb .breadcrumb-item.active {
       color: rgba(52, 58, 64, 0.8); }
   .breadcrumb.breadcrumb-custom {
     padding: 0 0;
     border-color: #dbe3e6; }
     .breadcrumb.breadcrumb-custom .breadcrumb-item {
-      font-size: 0.875rem;
+      font-size: 17px;
       background: #dbe3e6;
       padding: 0.56rem 10px;
       color: #000000;
@@ -12943,16 +12919,16 @@ code {
     color: #343a40;
     margin-bottom: 0.75rem;
     text-transform: capitalize;
-    font-family: "ubuntu-medium", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.125rem; }
   .card .card-subtitle {
-    font-family: "ubuntu-regular", sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin-top: 0.625rem;
     margin-bottom: 0.625rem; }
   .card .card-description {
     color: #76838f;
     margin-bottom: 1.5rem;
-    font-family: "ubuntu-regular", sans-serif; }
+    font-family: 'Roboto', sans-serif; }
   .card.card-outline-success {
     border: 1px solid theme-color("success"); }
   .card.card-outline-primary {
@@ -13057,7 +13033,7 @@ code {
   .form-check .form-check-label {
     display: block;
     margin-left: 1.75rem;
-    font-size: 0.875rem;
+    font-size: 17px;
     line-height: 1.5; }
     .rtl .form-check .form-check-label {
       margin-left: 0;
@@ -13084,8 +13060,8 @@ code {
         right: 0; }
     .form-check .form-check-label input[type="checkbox"] + .input-helper:before {
       content: "";
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
       border-radius: 2px;
       border: solid #FEA116;
       border-width: 2px;
@@ -13114,9 +13090,9 @@ code {
       background: linear-gradient(to right, #FFD500, #FEA116);
       border-width: 0; }
     .form-check .form-check-label input[type="checkbox"]:checked + .input-helper:after {
-      width: 18px;
+      width: 17px;
       opacity: 1;
-      line-height: 18px;
+      line-height: 17px;
       filter: alpha(opacity=100);
       -webkit-transform: scale(1);
       transform: scale(1); }
@@ -13267,7 +13243,7 @@ code {
 
 .dropdown .dropdown-menu {
   margin-top: .75rem;
-  font-size: 0.875rem;
+  font-size: 17px;
   -webkit-box-shadow: 0px 1px 15px 1px rgba(230, 234, 236, 0.35);
   box-shadow: 0px 1px 15px 1px rgba(230, 234, 236, 0.35); }
   .dropdown .dropdown-menu .dropdown-item {
@@ -13296,8 +13272,8 @@ code {
 
 .form-control {
   border: 1px solid #ebedf2;
-  font-family: "ubuntu-regular", sans-serif;
-  font-size: 0.8125rem; }
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px; }
   .form-control:focus {
     background-color: #ffffff;
     color: #000000;
@@ -13344,7 +13320,7 @@ select.form-control {
       outline: 1px solid #3e4b5b; }
 
 .form-group label {
-  font-size: 0.875rem;
+  font-size: 17px;
   line-height: 1;
   vertical-align: top;
   margin-bottom: .5rem; }
@@ -13373,8 +13349,8 @@ select.form-control {
     -ms-flex-align: center;
     align-items: center;
     padding: 15px 15px;
-    font-family: "ubuntu-regular", sans-serif;
-    font-size: 0.875rem; }
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px; }
     .icons-list > div i {
       display: inline-block;
       font-size: 20px;
@@ -13387,7 +13363,7 @@ ul,
 ol,
 dl {
   padding-left: 1rem;
-  font-size: 0.875rem; }
+  font-size: 17px; }
   ul li,
   ol li,
   dl li {
@@ -13611,14 +13587,14 @@ dl {
   .table thead th {
     border-top: 0;
     border-bottom-width: 1px;
-    font-family: "ubuntu-medium", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: initial; }
     .table thead th i {
       margin-left: 0.325rem; }
   .table th,
   .table td {
     vertical-align: middle;
-    font-size: 0.875rem;
+    font-size: 17px;
     line-height: 1;
     white-space: nowrap;
     padding: 0.9375rem; }
@@ -13720,13 +13696,13 @@ dl {
   line-height: 1.5; }
 
 .auth form .auth-link {
-  font-size: 0.875rem; }
+  font-size: 17px; }
   .auth form .auth-link:hover {
     color: initial; }
 
 /* Navbar */
 .navbar {
-  font-family: "ubuntu-light", sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: #fff;
   transition: background 0.25s ease;
   -webkit-transition: background 0.25s ease;
@@ -13803,24 +13779,24 @@ dl {
           padding-right: 11px;
           border-right: none; } }
     .navbar .navbar-menu-wrapper .search-field .input-group input {
-      font-size: 0.875rem;
+      font-size: 17px;
       padding: .5rem; }
       .navbar .navbar-menu-wrapper .search-field .input-group input:-ms-input-placeholder {
-        font-size: 0.875rem;
+        font-size: 17px;
         color: #9c9fa6;
-        font-family: "ubuntu-light", sans-serif; }
+        font-family: 'Roboto', sans-serif; }
       .navbar .navbar-menu-wrapper .search-field .input-group input:-moz-placeholder {
-        font-size: 0.875rem;
+        font-size: 17px;
         color: #9c9fa6;
-        font-family: "ubuntu-light", sans-serif; }
+        font-family: 'Roboto', sans-serif; }
       .navbar .navbar-menu-wrapper .search-field .input-group input::-moz-placeholder {
-        font-size: 0.875rem;
+        font-size: 17px;
         color: #9c9fa6;
-        font-family: "ubuntu-light", sans-serif; }
+        font-family: 'Roboto', sans-serif; }
       .navbar .navbar-menu-wrapper .search-field .input-group input::-webkit-input-placeholder {
-        font-size: 0.875rem;
+        font-size: 17px;
         color: #9c9fa6;
-        font-family: "ubuntu-light", sans-serif; }
+        font-family: 'Roboto', sans-serif; }
     .navbar .navbar-menu-wrapper .search-field .input-group i {
       font-size: 17px;
       margin-right: 0;
@@ -13860,7 +13836,7 @@ dl {
       align-items: center; }
       .navbar .navbar-menu-wrapper .navbar-nav .nav-item .nav-link {
         color: inherit;
-        font-size: 0.875rem;
+        font-size: 17px;
         margin-left: 1.5rem;
         margin-right: 1.5rem;
         height: 70px;
@@ -14109,7 +14085,7 @@ dl {
 .sidebar {
   min-height: calc(100vh - 70px);
   background: #ffffff;
-  font-family: "ubuntu-regular", sans-serif;
+  font-family: 'Roboto', sans-serif;
   padding: 0;
   width: 260px;
   z-index: 11;
@@ -14181,7 +14157,7 @@ dl {
         .sidebar .nav .nav-item .nav-link .menu-title {
           color: inherit;
           display: inline-block;
-          font-size: 0.875rem;
+          font-size: 17px;
           line-height: 1;
           vertical-align: middle; }
         .sidebar .nav .nav-item .nav-link .badge {
@@ -14193,7 +14169,7 @@ dl {
         background: #ffffff; }
         .sidebar .nav .nav-item.active > .nav-link .menu-title {
           color: #FEA116;
-          font-family: "ubuntu-medium", sans-serif; }
+          font-family: 'Roboto', sans-serif; }
         .sidebar .nav .nav-item.active > .nav-link i {
           color: #FEA116; }
       .sidebar .nav .nav-item:hover {
@@ -14243,7 +14219,7 @@ dl {
           color: #888;
           padding: 0.75rem 2rem 0.75rem 2rem;
           position: relative;
-          font-size: 0.8125rem;
+          font-size: 15px;
           line-height: 1;
           height: auto;
           border-top: 0; }

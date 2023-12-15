@@ -18,7 +18,7 @@ namespace BurgerKing.Controllers
             return View();
         }
 
-        public ActionResult ViewOrder(int? id)
+        public ActionResult ViewOrder(string id)
         {
             // Khởi tạo 2 đối tượng Order và OrderDetail tương ứng
             Order order = db.Orders.Find(id);

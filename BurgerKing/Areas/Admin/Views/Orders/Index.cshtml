@@ -36,7 +36,6 @@
                                     <th>@Html.DisplayNameFor(model => model.First().Status)</th>
                                     <th>Edit</th>
                                     <th>Detail</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,10 +46,20 @@
                                         <td>@Html.DisplayFor(modelItem => item.OrderDate)</td>
                                         <td>@Html.DisplayFor(modelItem => item.PaymentType)</td>
                                         <td>@Html.DisplayFor(modelItem => item.CustomerPhone)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                        @if (item.Status == OrderStatus.Completed) 
+                                        { 
+                                            <td><label class="badge badge-success">@Html.DisplayFor(modelItem => item.Status)</label></td>
+                                        }
+                                        @if (item.Status == OrderStatus.Canceled) 
+                                        { 
+                                            <td><label class="badge badge-danger">@Html.DisplayFor(modelItem => item.Status)</label></td>
+                                        }
+                                        @if (item.Status == OrderStatus.Processing) 
+                                        { 
+                                            <td><label class="badge badge-warning">@Html.DisplayFor(modelItem => item.Status)</label></td>
+                                        }
                                         <td>@Html.ActionLink("Edit", "Edit", new { id = item.OrderId })</td>
                                         <td>@Html.ActionLink("Details", "Details", new { id = item.OrderId })</td>
-                                        <td>@Html.ActionLink("Delete", "Delete", new { id = item.OrderId })</td>
                                     </tr>
 
                                 }
@@ -62,11 +71,15 @@
             </div>
         </div>
     </div>
-    <div class="">
+    <div class="table-responsive">
         Total items: @Model.TotalItemCount
         <br />
         Page @(Model.PageCount < @Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+        {
+            LiElementClasses = new[] { "btn btn-outline-warning mt-2" },
+            MaximumPageNumbersToDisplay = 3
+        })
     </div>
 </div>
 
@@ -78,6 +91,18 @@
     $(document).ready(function () {
         $("#button-create").click(function () {
             window.location.href = '@Url.Action("Create", "Orders")';
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        // Sự kiện click cho tất cả các nút có lớp CSS "btn-outline-warning"
+        $('.btn-outline-warning').on('click', function () {
+            // Lấy số trang từ văn bản nút
+            var pageNumber = $(this).text();
+
+            // Chuyển hướng tới trang tương ứng
+            window.location.href = '@Url.Action("Index")' + '?page=' + pageNumber;
         });
     });
 </script>

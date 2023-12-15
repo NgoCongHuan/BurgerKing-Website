@@ -26,7 +26,7 @@
                             <h4 class="card-title">Product Image</h4>
                             <img id="previewImage" src="#" alt="Preview Image" style="width: 100%; height: auto; display: none;" />
                             <br />
-                            <input type="file" class="dropdown-toggle" name="file" required="required" id="file" onchange="displayImage(this)" style = "background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" />
+                            <input type="file" class="form-control file-upload-info" name="file" required="required" id="file" onchange="displayImage(this)" style = "background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" />
                             @Html.ValidationMessageFor(model => model.ProImage, "", new { @class = "text-danger" })
                         </div>
                     </div>

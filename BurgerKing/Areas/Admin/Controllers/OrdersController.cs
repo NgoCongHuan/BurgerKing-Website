@@ -26,13 +26,16 @@ namespace BurgerKing.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+
+            // Lấy cả thông tin Order, OrderDetails và Product
+            Order order = db.Orders.Include(o => o.OrderDetails.Select(od => od.Product)).SingleOrDefault(o => o.OrderId == id);
+
             if (order == null)
             {
                 return HttpNotFound();
@@ -64,7 +67,7 @@ namespace BurgerKing.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -75,6 +78,18 @@ namespace BurgerKing.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            // Tạo danh sách SelectListItem từ hằng số trong lớp OrderStatus
+            var orderStatusList = new List<SelectListItem>
+            {
+                new SelectListItem { Value = OrderStatus.Canceled, Text = "Đã hủy đơn hàng" },
+                new SelectListItem { Value = OrderStatus.Failed, Text = "Đã xảy ra lỗi trong quá trình thanh toán" },
+                new SelectListItem { Value = OrderStatus.Processing, Text = "Đang chờ thanh toán" },
+                new SelectListItem { Value = OrderStatus.Completed, Text = "Đã thanh toán" }
+            };
+
+            // Gán danh sách vào ViewBag.Status
+            ViewBag.Status = new SelectList(orderStatusList, "Value", "Text", order.Status);
+
             return View(order);
         }
 
@@ -92,32 +107,6 @@ namespace BurgerKing.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(order);
-        }
-
-        // GET: Admin/Orders/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
-
-        // POST: Admin/Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

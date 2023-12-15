@@ -27,22 +27,22 @@
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
-          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="OrderNote" Type="nvarchar(max)" />
           <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
           <Property Name="CustomerPhone" Type="nvarchar" MaxLength="15" />
           <Property Name="CustomerEmail" Type="nvarchar" MaxLength="100" />
-          <Property Name="CustomerAddress" Type="nvarchar" MaxLength="250" />
-          <Property Name="OrderNote" Type="nvarchar" MaxLength="255" />
-          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="CustomerAddress" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
             <PropertyRef Name="OrderId" />
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Price" Type="float" />
           <Property Name="Quantity" Type="int" />
@@ -92,7 +92,7 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__Order__5EBF139D">
+        <Association Name="FK_OrderDetail_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -104,7 +104,7 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__Produ__5FB337D6">
+        <Association Name="FK_OrderDetail_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -150,11 +150,11 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Accounts" EntitySet="Accounts" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Order__5EBF139D" Association="Self.FK__OrderDeta__Order__5EBF139D">
+          <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Produ__5FB337D6" Association="Self.FK__OrderDeta__Produ__5FB337D6">
+          <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
           </AssociationSet>
@@ -186,7 +186,7 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
           <Property Name="CatId" Type="Int32" />
           <Property Name="ProPrice" Type="Double" />
           <NavigationProperty Name="Category" Relationship="Self.FK_SP_LSP" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="OrderDetails" Relationship="Models.FK__OrderDeta__Produ__5FB337D6" FromRole="Product" ToRole="OrderDetail" />
+          <NavigationProperty Name="OrderDetails" Relationship="Models.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="Product_Category">
           <Key>
@@ -221,74 +221,23 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <EntitySet Name="OrderDetails" EntityType="Models.OrderDetail" />
-          <AssociationSet Name="FK__OrderDeta__Produ__5FB337D6" Association="Models.FK__OrderDeta__Produ__5FB337D6">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <EntitySet Name="Orders" EntityType="Models.Order" />
-          <AssociationSet Name="FK__OrderDeta__Order__5EBF139D" Association="Models.FK__OrderDeta__Order__5EBF139D">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
           <EntitySet Name="Accounts" EntityType="Models.Account" />
           <EntitySet Name="Roles" EntityType="Models.Role" />
           <AssociationSet Name="FK__Accounts__RoleId__7D439ABD" Association="Models.FK__Accounts__RoleId__7D439ABD">
             <End Role="Role" EntitySet="Roles" />
             <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
+          <EntitySet Name="Orders" EntityType="Models.Order" />
+          <EntitySet Name="OrderDetails" EntityType="Models.OrderDetail" />
+          <AssociationSet Name="FK_OrderDetail_Order" Association="Models.FK_OrderDetail_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Product" Association="Models.FK_OrderDetail_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="OrderDetail">
-          <Key>
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="ProductId" />
-          </Key>
-          <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Models.FK__OrderDeta__Produ__5FB337D6" FromRole="OrderDetail" ToRole="Product" />
-          <NavigationProperty Name="Order" Relationship="Models.FK__OrderDeta__Order__5EBF139D" FromRole="OrderDetail" ToRole="Order" />
-        </EntityType>
-        <Association Name="FK__OrderDeta__Produ__5FB337D6">
-          <End Type="Models.Product" Role="Product" Multiplicity="1" />
-          <End Type="Models.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProId" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="OrderId" />
-          </Key>
-          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="OrderNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="OrderDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="OrderDetails" Relationship="Models.FK__OrderDeta__Order__5EBF139D" FromRole="Order" ToRole="OrderDetail" />
-        </EntityType>
-        <Association Name="FK__OrderDeta__Order__5EBF139D">
-          <End Type="Models.Order" Role="Order" Multiplicity="1" />
-          <End Type="Models.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Id" />
@@ -318,6 +267,57 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
             </Principal>
             <Dependent Role="Account">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="OrderNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrderDetails" Relationship="Models.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="OrderId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="Models.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="Models.FK_OrderDetail_Product" FromRole="OrderDetail" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_OrderDetail_Order">
+          <End Type="Models.Order" Role="Order" Multiplicity="1" />
+          <End Type="Models.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Product">
+          <End Type="Models.Product" Role="Product" Multiplicity="1" />
+          <End Type="Models.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -360,31 +360,6 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="Models.OrderDetail">
-              <MappingFragment StoreEntitySet="OrderDetail">
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="Models.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="OrderNote" ColumnName="OrderNote" />
-                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
-                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
-                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="Models.Account">
               <MappingFragment StoreEntitySet="Accounts">
@@ -402,6 +377,31 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Models.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="OrderNote" ColumnName="OrderNote" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="Models.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

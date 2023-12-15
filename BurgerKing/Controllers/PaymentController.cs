@@ -92,10 +92,10 @@ namespace BurgerKing.Controllers
         {
             // Khởi tạo đối tượng Database
             BurgerKingDBContext dBContext = new BurgerKingDBContext();
-            var query = from ord in dBContext.Orders where ord.OrderId.ToString() == id select ord;
+            var query = from ord in dBContext.Orders where ord.OrderId == id select ord;
 
             // Tính tổng số tiền thanh toán
-            int TotalPrice = (int)dBContext.OrderDetails.Where(o => o.OrderId.ToString() == id).Sum(o => o.Price * o.Quantity);
+            int TotalPrice = (int)dBContext.OrderDetails.Where(o => o.OrderId == id).Sum(o => o.Price * o.Quantity);
 
             foreach (Order ord in query)
             {
@@ -108,7 +108,7 @@ namespace BurgerKing.Controllers
                     // Gửi mail cho khách hàng
                     string content = System.IO.File.ReadAllText(Server.MapPath("~/Areas/client/template/neworder.html"));
 
-                    content = content.Replace("{{OrderId}}", ord.OrderId.ToString());
+                    content = content.Replace("{{OrderId}}", ord.OrderId);
                     content = content.Replace("{{CustomerName}}", ord.CustomerName);
                     content = content.Replace("{{CustomerPhone}}", ord.CustomerPhone);
                     content = content.Replace("{{CustomerEmail}}", ord.CustomerEmail);
@@ -148,10 +148,10 @@ namespace BurgerKing.Controllers
         {
             // Khởi tạo đối tượng Database
             BurgerKingDBContext dBContext = new BurgerKingDBContext();
-            var query = from ord in dBContext.Orders where ord.OrderId.ToString() == id select ord;
+            var query = from ord in dBContext.Orders where ord.OrderId == id select ord;
 
             // Tính tổng số tiền thanh toán
-            int TotalPrice = (int)dBContext.OrderDetails.Where(o => o.OrderId.ToString() == id).Sum(o => o.Price * o.Quantity);
+            int TotalPrice = (int)dBContext.OrderDetails.Where(o => o.OrderId == id).Sum(o => o.Price * o.Quantity);
 
             foreach (Order ord in query)
             {
@@ -162,7 +162,7 @@ namespace BurgerKing.Controllers
                 // Gửi mail cho khách hàng
                 string content = System.IO.File.ReadAllText(Server.MapPath("~/Areas/client/template/neworder.html"));
 
-                content = content.Replace("{{OrderId}}", ord.OrderId.ToString());
+                content = content.Replace("{{OrderId}}", ord.OrderId);
                 content = content.Replace("{{CustomerName}}", ord.CustomerName);
                 content = content.Replace("{{CustomerPhone}}", ord.CustomerPhone);
                 content = content.Replace("{{CustomerEmail}}", ord.CustomerEmail);
