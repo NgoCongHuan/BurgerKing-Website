@@ -45,6 +45,7 @@ namespace BurgerKing.Controllers
                             HttpCookie cookie = new HttpCookie("AccountInfo");
                             var account = new Account()
                             {
+                                Id = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Id).FirstOrDefault(),
                                 Name = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault(),
                                 Email = emailOrPhoneNumber,
                                 Phone = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Phone).FirstOrDefault()
@@ -78,6 +79,7 @@ namespace BurgerKing.Controllers
                             HttpCookie cookie = new HttpCookie("AccountInfo");
                             var account = new Account()
                             {
+                                Id = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Id).FirstOrDefault(),
                                 Name = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault(),
                                 Email = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Email).FirstOrDefault(),
                                 Phone = emailOrPhoneNumber

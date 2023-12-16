@@ -1,0 +1,137 @@
+﻿@model IEnumerable<BurgerKing.Models.Order>
+@using BurgerKing.Models;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "OrderHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string accountInfo = Request.Cookies["AccountInfo"]?.Value;
+
+    if (!string.IsNullOrEmpty(accountInfo))
+    {
+        Account acc = JsonConvert.DeserializeObject<Account>(accountInfo);
+
+        if (acc != null)
+        {
+            ViewBag.Name = acc.Name;
+            ViewBag.Id = acc.Id;
+        }
+    }
+}
+
+<div class="container profile-container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+        <h5 class="section-title ff-secondary text-center text-primary fw-normal">Tài khoản</h5>
+        <h1 class="mb-5">Thông tin tài khoản</h1>
+    </div>
+    <div class="row">
+        <!-- Cột Thông tin tài khoản (col-3) -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="text-center">
+                    <div class="rounded-circle overflow-hidden m-4">
+                        <img class="img-fluid" src="~/images/Burger01.png" alt="">
+                    </div>
+                    <h5 class="mb-0">@ViewBag.Name</h5>
+                    <small>@ViewBag.Phone </small>
+                </div>
+                <div class="row card-body">
+                    <!-- Nội dung Thông tin tài khoản -->
+                    <a class="option" href="@Url.Action("Index","Customer", new { id = ViewBag.Id})">Thông tin tài khoản</a>
+                    <a class="option" href="@Url.Action("OrderHistory","Customer", new { id = ViewBag.Id})">Lịch sử đơn hàng</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột Lịch sử đơn hàng (col-9) -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    Lịch sử đơn hàng
+                </div>
+                <div class="card-body">
+                    <!-- Nội dung Lịch sử đơn hàng -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Mã đơn hàng</th>
+                                    <th scope="col">Ngày đặt hàng</th>
+                                    <th scope="col">Tổng tiền</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model)
+                                {
+                                    <tr>
+                                        <th>@order.OrderId</th>
+                                        <td>@order.OrderDate</td>
+                                        <td>@ViewBag.OrderTotalPrices[order.OrderId]</td>
+                                        <td>@order.Status</td>
+                                        <td>Chi tiết</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .option {
+        text-align: left;
+        padding: 15px 10px;
+        color: #333;
+        transition: background-color 0.6s ease, color 0.3s ease;
+    }
+
+
+        .option:hover {
+            background-color: #fea116;
+            color: #fff;
+        }
+
+    .card-header {
+        background-color: #fea116;
+        color: #fff;
+        border: 1px solid #fea116;
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            // Gọi hàm cập nhật số lượng mục trong giỏ hàng khi trang được tải
+            updateCartItemCount();
+
+            // Hàm để gọi action và cập nhật số lượng trên giao diện
+            function updateCartItemCount() {
+                $.ajax({
+                    url: '@Url.Action("GetCartItemCount", "ShoppingCart")', // Đường dẫn đến action
+                    type: 'GET',
+                    success: function (data) {
+                        // Xử lý dữ liệu trả về, ở đây có thể làm bất cứ điều gì bạn muốn
+                        console.log('Số lượng mục trong giỏ hàng: ' + data.itemCount);
+
+                        // Cập nhật giao diện người dùng với số lượng mới
+                        $('#cart_count').text(data.itemCount);
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gọi action');
+                    }
+                });
+            }
+        });
+    </script>
+}

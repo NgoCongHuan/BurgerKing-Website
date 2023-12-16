@@ -10,6 +10,7 @@ using BurgerKing.Models;
 
 namespace BurgerKing.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AccountsController : Controller
     {
         private BurgerKingDBContext db = new BurgerKingDBContext();

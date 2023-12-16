@@ -10,11 +10,11 @@
     @Html.AntiForgeryToken()
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> Edit Category </h3>
+            <h3 class="page-title" style="font-weight:bold"> Chỉnh sửa loại sản phẩm </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+                    <li class="breadcrumb-item"><a href="#">Quản lý thông tin</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Loại sản phẩm</li>
                 </ol>
             </nav>
         </div>
@@ -24,7 +24,8 @@
                     <div class="card-body">
                         <form class="forms-sample">
                             <div class="form-group">
-                                <h4 class="card-title">Category Name</h4>@Html.HiddenFor(model => model.CatId)
+                                @Html.HiddenFor(model => model.CatId)
+                                <h4 class="card-title" style="font-weight: bold;">Tên loại sản phẩm</h4>
                                 @Html.EditorFor(model => model.CatName, new { htmlAttributes = new { @class = "form-control", @id = "exampleInputUsername1", @placeholder = "CatName" } })
                                 @Html.ValidationMessageFor(model => model.CatName, "", new { @class = "text-danger" })
                             </div>

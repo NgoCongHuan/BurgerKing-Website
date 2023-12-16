@@ -67,6 +67,7 @@
                             if (acc != null)
                             {
                                 ViewBag.Name = acc.Name;
+                                ViewBag.Id = acc.Id;
                             }
                         }
                     }
@@ -80,7 +81,7 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@ViewBag.Name</a>
                                 <div class="dropdown-menu m-0 dropdown-account" style="right: 0;">
-                                    <a href="" class="dropdown-item">Tài khoản</a>
+                                    @Html.ActionLink("Tài khoản", "Index", "Customer", new { id = ViewBag.Id }, new { @class = "dropdown-item" })
                                     @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
                                 </div>
                             </div>

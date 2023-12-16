@@ -7,13 +7,13 @@
 
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title"> Product Detail </h3>
+        <h3 class="page-title" style="font-weight: bold;"> Chi tiết sản phẩm </h3>
     </div>
     <div class="row">
         <div class="col-lg-5 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">@Html.DisplayNameFor(model => model.ProImage)</h4>
+                    <h4 class="card-title" style="font-weight: bold;">Ảnh sản phẩm</h4>
                     <img width="100%" height="auto" src="~/images/@Html.DisplayFor(model => model.ProImage)" />
                 </div>
             </div>
@@ -24,28 +24,28 @@
                     <form class="forms-sample">
                         @Html.HiddenFor(model => model.ProId)
                         <div class="form-group">
-                            <h4 class="card-title">@Html.DisplayNameFor(model => model.ProName)</h4>
+                            <h4 class="card-title" style="font-weight: bold;">Tên sản phẩm</h4>
                             <span class="form-control">
                                 @Html.DisplayFor(model => model.ProName)
                             </span>
                             @Html.ValidationMessageFor(model => model.ProName, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            <h4 class="card-title">@Html.DisplayNameFor(model => model.ProDes)</h4>
+                            <h4 class="card-title" style="font-weight: bold;">Mô tả sản phẩm</h4>
                             <span class="form-control">
                                 @Html.DisplayFor(model => model.ProDes)
                             </span>
                             @Html.ValidationMessageFor(model => model.ProDes, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            <h4 class="card-title">@Html.DisplayNameFor(model => model.Category.CatName)</h4>
+                            <h4 class="card-title" style="font-weight: bold;">Loại sản phẩm</h4>
                             <span class="form-control">
                                 @Html.DisplayFor(model => model.Category.CatName)
                             </span>
                             @Html.ValidationMessageFor(model => model.Category.CatName, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            <h4 class="card-title">@Html.DisplayNameFor(model => model.ProPrice)</h4>
+                            <h4 class="card-title" style="font-weight: bold;">Đơn giá sản phẩm</h4>
                             <span class="form-control">
                                 @Html.DisplayFor(model => model.ProPrice)
                             </span>
