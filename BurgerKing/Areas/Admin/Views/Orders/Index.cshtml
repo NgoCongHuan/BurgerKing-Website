@@ -11,12 +11,12 @@
 <div class="content-wrapper">
     <div class="page-header">
         <button id="button-create" type="button" class="btn btn-gradient-primary btn-icon-text">
-            <i class="mdi mdi-library-plus btn-icon-prepend"></i>Create
+            <i class="mdi mdi-library-plus btn-icon-prepend"></i>Thêm đơn hàng mới
         </button>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Basic tables</li>
+                <li class="breadcrumb-item"><a href="#">Quản lý thông tin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
             </ol>
         </nav>
     </div>
@@ -24,18 +24,18 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Product</h4>
+                    <h4 class="card-title" style="font-weight:bold">Đơn hàng</h4>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>@Html.DisplayNameFor(model => model.First().OrderId)</th>
-                                    <th>@Html.DisplayNameFor(model => model.First().OrderDate)</th>
-                                    <th>@Html.DisplayNameFor(model => model.First().PaymentType)</th>
-                                    <th>@Html.DisplayNameFor(model => model.First().CustomerPhone)</th>
-                                    <th>@Html.DisplayNameFor(model => model.First().Status)</th>
-                                    <th>Edit</th>
-                                    <th>Detail</th>
+                                    <th style="font-weight:bold">Mã đơn hàng</th>
+                                    <th style="font-weight:bold">Ngày đặt hàng</th>
+                                    <th style="font-weight:bold">Phương thức thanh toán</th>
+                                    <th style="font-weight:bold">Số điện thoại</th>
+                                    <th style="font-weight:bold">Trạng thái đơn hàng</th>
+                                    <th style="font-weight:bold">Sửa</th>
+                                    <th style="font-weight:bold">Chi tiết</th>
                                 </tr>
                             </thead>
                             <tbody>

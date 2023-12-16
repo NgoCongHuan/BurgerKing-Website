@@ -10,7 +10,13 @@
     @Html.AntiForgeryToken()
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> Mã đơn hàng: @Model.OrderId </h3>
+            <h3 class="page-title" style="font-weight:bold"> Mã đơn hàng: @Model.OrderId </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Quản lý thông tin</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
+                </ol>
+            </nav>
         </div>
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -19,37 +25,37 @@
                         <form class="forms-sample">
                             @Html.HiddenFor(model => model.OrderId)
                             <div class="form-group">
-                                <h4 class="card-title">Order date</h4>
+                                <h4 class="card-title" style="font-weight:bold">Ngày đặt hàng</h4>
                                 @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title">Payment type</h4>
+                                <h4 class="card-title" style="font-weight:bold">Phương thức thanh toán</h4>
                                 @Html.EditorFor(model => model.PaymentType, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.PaymentType, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title">Status</h4>
+                                <h4 class="card-title" style="font-weight:bold">Trạng thái đơn hàng</h4>
                                 @Html.DropDownList("Status", ViewBag.Status as SelectList, Model.Status, htmlAttributes: new { @class = "dropdown-toggle", style = "background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" })
                                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title">Customer Name</h4>
+                                <h4 class="card-title" style="font-weight:bold">Tên khách hàng</h4>
                                 @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title">Customer Email</h4>
+                                <h4 class="card-title" style="font-weight:bold">Email</h4>
                                 @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title">Customer Phone</h4>
+                                <h4 class="card-title" style="font-weight:bold">Số điện thoại</h4>
                                 @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.CustomerPhone, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title">Customer Address</h4>
+                                <h4 class="card-title" style="font-weight:bold">Địa chỉ</h4>
                                 @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
                             </div>

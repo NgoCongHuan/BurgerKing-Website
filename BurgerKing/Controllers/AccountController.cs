@@ -157,8 +157,10 @@ namespace BurgerKing.Controllers
                 var newAccount = new Account
                 {
                     Name = name,
+                    Image = "male.jpg", // Hình ảnh mặc định
                     Email = email,
                     Phone = phone,
+                    Address = "", // Địa chỉ mặc định là chuỗi rỗng
                     Password = GetSHA256(password),
                     // Thiết lập quyền mặc định là khách hàng
                     RoleId = dbContext.Roles.FirstOrDefault(r => r.RoleName == "Customer").RoleId

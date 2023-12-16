@@ -7,56 +7,56 @@
 
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title"> Order and Order Details</h3>
+        <h3 class="page-title" style="font-weight:bold"> Chi tiết đơn hàng</h3>
     </div>
     <div class="row">
         <div class="col-lg-7 grid-margin">
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <h4 class="card-title">@Html.DisplayNameFor(model => model.OrderId)</h4>
+                        <h4 class="card-title" style="font-weight:bold">Mã đơn hàng</h4>
                         <span class="form-control">
                             @Html.DisplayFor(model => model.OrderId)
                         </span>
                     </div>
                     <div class="form-group">
-                        <h4 class="card-title">@Html.DisplayNameFor(model => model.OrderDate)</h4>
+                        <h4 class="card-title" style="font-weight:bold">Ngày đặt hàng</h4>
                         <span class="form-control">
                             @Html.DisplayFor(model => model.OrderDate)
                         </span>
                     </div>
                     <div class="form-group">
-                        <h4 class="card-title">@Html.DisplayNameFor(model => model.PaymentType)</h4>
+                        <h4 class="card-title" style="font-weight:bold">Phương thức thanh toán</h4>
                         <span class="form-control">
                             @Html.DisplayFor(model => model.PaymentType)
                         </span>
                     </div>
                     <div class="form-group">
-                        <h4 class="card-title">@Html.DisplayNameFor(model => model.Status)</h4>
+                        <h4 class="card-title" style="font-weight:bold">Trạng thái đơn hàng</h4>
                         <span class="form-control">
                             @Html.DisplayFor(model => model.Status)
                         </span>
                     </div>
                     <div class="form-group">
-                        <h4 class="card-title">@Html.DisplayNameFor(model => model.CustomerName)</h4>
+                        <h4 class="card-title" style="font-weight:bold">Tên khách hàng</h4>
                         <span class="form-control">
                             @Html.DisplayFor(model => model.CustomerName)
                         </span>
                     </div>
                     <div class="form-group">
-                        <h4 class="card-title">@Html.DisplayNameFor(model => model.CustomerEmail)</h4>
+                        <h4 class="card-title" style="font-weight:bold">Email</h4>
                         <span class="form-control">
                             @Html.DisplayFor(model => model.CustomerEmail)
                         </span>
                     </div>
                     <div class="form-group">
-                        <h4 class="card-title">@Html.DisplayNameFor(model => model.CustomerPhone)</h4>
+                        <h4 class="card-title" style="font-weight:bold">Số điện thoại</h4>
                         <span class="form-control">
                             @Html.DisplayFor(model => model.CustomerPhone)
                         </span>
                     </div>
                     <div class="form-group">
-                        <h4 class="card-title">@Html.DisplayNameFor(model => model.CustomerAddress)</h4>
+                        <h4 class="card-title" style="font-weight:bold">Địa chỉ</h4>
                         <span class="form-control">
                             @Html.DisplayFor(model => model.CustomerAddress)
                         </span>
@@ -70,10 +70,10 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th> Image </th>
-                                <th> Name </th>
-                                <th> Quantity </th>
-                                <th> Price </th>
+                                <th style="font-weight:bold"> Ảnh sản phẩm </th>
+                                <th style="font-weight:bold"> Tên sản phẩm </th>
+                                <th style="font-weight:bold"> Đơn giá </th>
+                                <th style="font-weight:bold"> Số lượng </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,8 +82,8 @@
                                 <tr>
                                     <td> <img src="~/images/@pro.Product.ProImage" class="img-fluid" /> </td>
                                     <td> @pro.Product.ProName </td>
-                                    <td> @pro.Quantity </td>
                                     <td> @pro.Price </td>
+                                    <td> @pro.Quantity </td>
                                 </tr>
                             }
                         </tbody>

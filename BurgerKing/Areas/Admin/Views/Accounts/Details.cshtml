@@ -7,13 +7,13 @@
 
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title"> Account Detail </h3>
+        <h3 class="page-title" style="font-weight:bold"> Thông tin chi tiết tài khoản </h3>
     </div>
     <div class="row">
         <div class="col-lg-5 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Image</h4>
+                    <h4 class="card-title" style="font-weight:bold">Ảnh đại diện</h4>
                     <img width="100%" height="auto" src="" />
                 </div>
             </div>
@@ -24,28 +24,28 @@
                     <form class="forms-sample">
                         @Html.HiddenFor(model => model.Id)
                         <div class="form-group">
-                            <h4 class="card-title">@Html.DisplayNameFor(model => model.Name)</h4>
+                            <h4 class="card-title" style="font-weight:bold">Họ và tên</h4>
                             <span class="form-control">
                                 @Html.DisplayFor(model => model.Name)
                             </span>
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            <h4 class="card-title">@Html.DisplayNameFor(model => model.Email)</h4>
+                            <h4 class="card-title" style="font-weight:bold">Email</h4>
                             <span class="form-control">
                                 @Html.DisplayFor(model => model.Email)
                             </span>
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            <h4 class="card-title">@Html.DisplayNameFor(model => model.Phone)</h4>
+                            <h4 class="card-title" style="font-weight:bold">Số điện thoại</h4>
                             <span class="form-control">
                                 @Html.DisplayFor(model => model.Phone)
                             </span>
                             @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            <h4 class="card-title">@Html.DisplayNameFor(model => model.Role.RoleName)</h4>
+                            <h4 class="card-title" style="font-weight:bold">Phân quyền</h4>
                             <span class="form-control">
                                 @Html.DisplayFor(model => model.Role.RoleName)
                             </span>

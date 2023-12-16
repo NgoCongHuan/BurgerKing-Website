@@ -8,12 +8,12 @@
 <div class="content-wrapper">
     <div class="page-header">
         <button id="button-create" type="button" class="btn btn-gradient-primary btn-icon-text">
-            <i class="mdi mdi-library-plus btn-icon-prepend"></i>Create
+            <i class="mdi mdi-library-plus btn-icon-prepend"></i>Thêm tài khoản mới
         </button>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Basic tables</li>
+                <li class="breadcrumb-item"><a href="#">Quản lý thông tin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tài khoản</li>
             </ol>
         </nav>
     </div>
@@ -21,19 +21,19 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Account</h4>
+                    <h4 class="card-title" style="font-weight:bold">Tài khoản</h4>
                     </p>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Email)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Phone)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Role.RoleId) </th>
-                                    <th>Edit</th>
-                                    <th>Detail</th>
-                                    <th>Delete</th>
+                                    <th style="font-weight:bold">Họ và tên</th>
+                                    <th style="font-weight:bold">Email</th>
+                                    <th style="font-weight:bold">Số điện thoại</th>
+                                    <th style="font-weight:bold">Phân quyền</th>
+                                    <th style="font-weight:bold">Sửa tài khoản</th>
+                                    <th style="font-weight:bold">Chi tiết tài khoản</th>
+                                    <th style="font-weight:bold">Xóa tài khoản</th>
                                 </tr>
                             </thead>
                             <tbody>

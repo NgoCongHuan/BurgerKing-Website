@@ -7,7 +7,7 @@
 {
     @Html.AntiForgeryToken()
     <!-- Sign in Start -->
-    <div class="container-xxl py-5">
+    <div id="targetSection" class="container-xxl py-5">
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
@@ -54,6 +54,20 @@
     </div>
     <!-- Sign in End -->
 }
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    // JavaScript để tự động scroll đến phần tử khi trang load
+    document.addEventListener('DOMContentLoaded', function () {
+        var targetElement = document.getElementById('targetSection');
+
+        // Kiểm tra xem phần tử có tồn tại không
+        if (targetElement) {
+            // Sử dụng smooth scroll
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
 
 @section scripts{
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

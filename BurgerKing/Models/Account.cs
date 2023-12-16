@@ -20,6 +20,8 @@ namespace BurgerKing.Models
         public string Phone { get; set; }
         public string Password { get; set; }
         public Nullable<int> RoleId { get; set; }
+        public string Image { get; set; }
+        public string Address { get; set; }
     
         public virtual Role Role { get; set; }
     }
