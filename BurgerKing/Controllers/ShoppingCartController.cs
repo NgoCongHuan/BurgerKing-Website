@@ -19,13 +19,26 @@ namespace BurgerKing.Controllers
     public class ShoppingCartController : Controller
     {
         private BurgerKingDBContext dbContext = new BurgerKingDBContext();
+        
         private string strCart = "Cart";
+       
         private int CalculateCartItemCount()
         {
             List<Cart> ListCart = (List<Cart>)Session[strCart];
             return ListCart != null ? ListCart.Sum(c => c.Quantity) : 0;
         }
-        
+
+        private int IsExistingCheck(int? Id)
+        {
+            List<Cart> ListCart = (List<Cart>)Session[strCart];
+            for (int i = 0; i < ListCart.Count; i++)
+            {
+                if (ListCart[i].Product.ProId == Id)
+                    return i;
+            }
+            return -1;
+        }
+
         // GET: ShoppingCart
         public ActionResult Index()
         {
@@ -99,17 +112,6 @@ namespace BurgerKing.Controllers
             return RedirectToAction("Index");
         }
 
-        private int IsExistingCheck(int? Id)
-        {
-            List<Cart> ListCart = (List<Cart>)Session[strCart];
-            for (int i = 0; i < ListCart.Count; i++)
-            {
-                if (ListCart[i].Product.ProId == Id)
-                    return i;
-            }
-            return -1;
-        }
-
         public ActionResult RemoveItem(int? Id)
         {
             if (Id == null)
@@ -162,6 +164,7 @@ namespace BurgerKing.Controllers
                     ViewBag.Name = acc.Name;
                     ViewBag.Email = acc.Email;
                     ViewBag.Phone = acc.Phone;
+                    ViewBag.Address = acc.Address;
                 }
             }
 
