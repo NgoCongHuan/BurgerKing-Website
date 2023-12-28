@@ -60,6 +60,17 @@
           <Property Name="CatId" Type="int" />
           <Property Name="ProPrice" Type="float" />
         </EntityType>
+        <EntityType Name="ProductReview">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProId" Type="int" />
+          <Property Name="AccId" Type="int" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="ReviewDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -118,6 +129,30 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductReview_Account">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="0..1" />
+          <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductReview">
+              <PropertyRef Name="AccId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductReview_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProId" />
+            </Principal>
+            <Dependent Role="ProductReview">
+              <PropertyRef Name="ProId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SP_LSP">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -136,6 +171,7 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductReview" EntityType="Self.ProductReview" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product_Category" EntityType="Self.Product_Category" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -159,6 +195,14 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
           <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductReview_Account" Association="Self.FK_ProductReview_Account">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="ProductReview" EntitySet="ProductReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductReview_Product" Association="Self.FK_ProductReview_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductReview" EntitySet="ProductReview" />
           </AssociationSet>
           <AssociationSet Name="FK_SP_LSP" Association="Self.FK_SP_LSP">
             <End Role="Category" EntitySet="Category" />
@@ -189,6 +233,7 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
           <Property Name="ProPrice" Type="Double" />
           <NavigationProperty Name="Category" Relationship="Self.FK_SP_LSP" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="OrderDetails" Relationship="Models.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
+          <NavigationProperty Name="ProductReviews" Relationship="Models.FK_ProductReview_Product" FromRole="Product" ToRole="ProductReview" />
         </EntityType>
         <EntityType Name="Product_Category">
           <Key>
@@ -238,6 +283,15 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
           <AssociationSet Name="FK__Accounts__RoleId__7D439ABD" Association="Models.FK__Accounts__RoleId__7D439ABD">
             <End Role="Role" EntitySet="Roles" />
             <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <EntitySet Name="ProductReviews" EntityType="Models.ProductReview" />
+          <AssociationSet Name="FK_ProductReview_Account" Association="Models.FK_ProductReview_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="ProductReview" EntitySet="ProductReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductReview_Product" Association="Models.FK_ProductReview_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductReview" EntitySet="ProductReviews" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -312,6 +366,7 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
           <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Role" Relationship="Models.FK__Accounts__RoleId__7D439ABD" FromRole="Account" ToRole="Role" />
+          <NavigationProperty Name="ProductReviews" Relationship="Models.FK_ProductReview_Account" FromRole="Account" ToRole="ProductReview" />
         </EntityType>
         <Association Name="FK__Accounts__RoleId__7D439ABD">
           <End Type="Models.Role" Role="Role" Multiplicity="0..1" />
@@ -322,6 +377,43 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
             </Principal>
             <Dependent Role="Account">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductReview">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProId" Type="Int32" />
+          <Property Name="AccId" Type="Int32" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReviewDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="Models.FK_ProductReview_Account" FromRole="ProductReview" ToRole="Account" />
+          <NavigationProperty Name="Product" Relationship="Models.FK_ProductReview_Product" FromRole="ProductReview" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductReview_Account">
+          <End Type="Models.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="Models.ProductReview" Role="ProductReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductReview">
+              <PropertyRef Name="AccId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductReview_Product">
+          <End Type="Models.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="Models.ProductReview" Role="ProductReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProId" />
+            </Principal>
+            <Dependent Role="ProductReview">
+              <PropertyRef Name="ProId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -408,6 +500,18 @@ warning 6002: The table/view 'BurgerKingDatabase.dbo.Product_Category' does not 
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductReviews">
+            <EntityTypeMapping TypeName="Models.ProductReview">
+              <MappingFragment StoreEntitySet="ProductReview">
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="AccId" ColumnName="AccId" />
+                <ScalarProperty Name="ProId" ColumnName="ProId" />
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

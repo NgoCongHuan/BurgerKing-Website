@@ -97,49 +97,57 @@
                         <div class="tab-pane fade show active" id="tab-pane-3">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4 class="mb-4">1 review for "Product Name"</h4>
-                                    <div class="media mb-4">
-                                        <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                        <div class="media-body">
-                                            <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                            <div class="text-primary mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                                <i class="far fa-star"></i>
+
+                                    @foreach (var review in ViewBag.Reviews)
+                                    {
+                                        <div class="media mb-4">
+                                            <div class="d-flex">
+                                                <img src="~/images/@review.Account.Image" alt="Image" class="img-fluid mr-3 mt-1" style="width: 60px; height: 100%;">
+                                                <div class="p-2">
+                                                    <h6>@review.Account.Name<small> - <i>@review.ReviewDate</i></small></h6>
+                                                    <div class="text-primary mb-2">
+                                                        @for (int i = 1; i <= 5; i++)
+                                                        {
+                                                            if (i <= review.Rating)
+                                                            {
+                                                                <i class="fas fa-star"></i>
+                                                            }
+                                                            else if (i - 0.5 <= review.Rating)
+                                                            {
+                                                                <i class="fas fa-star-half-alt"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="far fa-star"></i>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                                            <div class="media-body">
+                                                <p>@review.Comment</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                                 <div class="col-md-6">
-                                    <h4 class="mb-4">Leave a review</h4>
-                                    <small>Your email address will not be published. Required fields are marked *</small>
+                                    <h4 class="mb-4">Đánh giá sản phẩm</h4>
                                     <div class="d-flex my-3">
-                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <p class="mb-0 mr-2">Đánh giá:</p>
                                         <div class="text-primary">
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
+                                            <i id="star1" class="far fa-star" onclick="rateStar(1)" onmouseover="hoverStar(1)" onmouseout="unhoverStars()"></i>
+                                            <i id="star2" class="far fa-star" onclick="rateStar(2)" onmouseover="hoverStar(2)" onmouseout="unhoverStars()"></i>
+                                            <i id="star3" class="far fa-star" onclick="rateStar(3)" onmouseover="hoverStar(3)" onmouseout="unhoverStars()"></i>
+                                            <i id="star4" class="far fa-star" onclick="rateStar(4)" onmouseover="hoverStar(4)" onmouseout="unhoverStars()"></i>
+                                            <i id="star5" class="far fa-star" onclick="rateStar(5)" onmouseover="hoverStar(5)" onmouseout="unhoverStars()"></i>
                                         </div>
                                     </div>
                                     <form>
                                         <div class="form-group">
-                                            <label for="message">Your Review *</label>
+                                            <label class="mb-2" for="message">Nội dung đánh giá:</label>
                                             <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="name">Your Name *</label>
-                                            <input type="text" class="form-control" id="name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Your Email *</label>
-                                            <input type="email" class="form-control" id="email">
-                                        </div>
-                                        <div class="form-group mb-0">
+                                        <div class="form-group mb-0 mt-3">
                                             <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
                                         </div>
                                     </form>
@@ -171,6 +179,48 @@
             }
         });
     });
+</script>
+
+<script>
+    // Xử lý số sao đánh giá
+    function rateStar(starIndex) {
+        selectRateStar = starIndex;
+        console.log(selectRateStar)
+        // Lặp qua các sao và đổi class tương ứng
+        for (let i = 1; i <= 5; i++) {
+            const starElement = document.getElementById(`star${i}`);
+            starElement.classList.remove('far', 'fas');
+            if (i <= starIndex) {
+                starElement.classList.add('fas');
+                starElement.classList.add('checked');
+            } else {
+                starElement.classList.add('far');
+                starElement.classList.remove('checked');
+            }
+        }
+    }
+
+    function hoverStar(starIndex) {
+        // Hiệu ứng khi di chuột qua
+        for (let i = 1; i <= starIndex; i++) {
+            const starElement = document.getElementById(`star${i}`);
+            starElement.classList.remove('far');
+            starElement.classList.add('fas');
+        }
+        document.body.style.cursor = 'pointer'; // Đổi con trỏ thành hình bàn tay
+    }
+
+    function unhoverStars() {
+        // Hiệu ứng khi rời chuột
+        for (let i = 1; i <= 5; i++) {
+            const starElement = document.getElementById(`star${i}`);
+            if (!starElement.classList.contains('checked')) {
+                starElement.classList.remove('fas');
+                starElement.classList.add('far');
+            }
+        }
+        document.body.style.cursor = 'default'; // Đổi con trỏ về mặc định
+    }
 </script>
 
 @section scripts{

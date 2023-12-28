@@ -4,18 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dfc57198a4904043b82acb245f02d40e" Name="Diagram1" ZoomLevel="77">
-        <EntityTypeShape EntityType="Models.Category" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.Product" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.Product_Category" Width="1.5" PointX="5.625" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="dfc57198a4904043b82acb245f02d40e" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="Models.Category" Width="1.5" PointX="12.375" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Product" Width="1.5" PointX="12.375" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Product_Category" Width="1.5" PointX="14.875" PointY="6.5" IsExpanded="true" />
         <AssociationConnector Association="Models.FK_SP_LSP" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Models.Role" Width="1.5" PointX="12" PointY="1.125" />
-        <EntityTypeShape EntityType="Models.Order" Width="1.5" PointX="9.625" PointY="3.125" />
-        <EntityTypeShape EntityType="Models.OrderDetail" Width="1.5" PointX="9.625" PointY="0.5" />
+        <EntityTypeShape EntityType="Models.Role" Width="1.5" PointX="19.125" PointY="3.625" />
+        <EntityTypeShape EntityType="Models.Order" Width="1.5" PointX="9.75" PointY="5.875" />
+        <EntityTypeShape EntityType="Models.OrderDetail" Width="1.5" PointX="10" PointY="3.25" />
         <AssociationConnector Association="Models.FK_OrderDetail_Order" />
         <AssociationConnector Association="Models.FK_OrderDetail_Product" />
-        <EntityTypeShape EntityType="Models.Account" Width="1.5" PointX="14.125" PointY="1.25" />
+        <EntityTypeShape EntityType="Models.Account" Width="1.5" PointX="17" PointY="3" />
         <AssociationConnector Association="Models.FK__Accounts__RoleId__7D439ABD" />
+        <EntityTypeShape EntityType="Models.ProductReview" Width="1.5" PointX="14.75" PointY="3.25" />
+        <AssociationConnector Association="Models.FK_ProductReview_Account" />
+        <AssociationConnector Association="Models.FK_ProductReview_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

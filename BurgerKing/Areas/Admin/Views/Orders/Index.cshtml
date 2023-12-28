@@ -58,6 +58,10 @@
                                         { 
                                             <td><label class="badge badge-warning">@Html.DisplayFor(modelItem => item.Status)</label></td>
                                         }
+                                        @if (item.Status == OrderStatus.Failed) 
+                                        { 
+                                            <td><label class="badge badge-secondary">@Html.DisplayFor(modelItem => item.Status)</label></td>
+                                        }
                                         <td>@Html.ActionLink("Edit", "Edit", new { id = item.OrderId })</td>
                                         <td>@Html.ActionLink("Details", "Details", new { id = item.OrderId })</td>
                                     </tr>

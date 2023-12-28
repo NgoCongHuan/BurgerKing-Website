@@ -18,6 +18,7 @@
         {
             ViewBag.Name = acc.Name;
             ViewBag.Id = acc.Id;
+            ViewBag.Image = acc.Image;
         }
     }
 }
@@ -33,7 +34,7 @@
             <div class="card">
                 <div class="text-center">
                     <div class="rounded-circle overflow-hidden m-4">
-                        <img class="img-fluid" src="~/images/@Html.DisplayFor(model => model.Image)" alt="">
+                        <img class="img-fluid" src="~/images/@ViewBag.Image" alt="">
                     </div>
                     <h5 class="mb-0">@ViewBag.Name</h5>
                     <small>@ViewBag.Phone </small>

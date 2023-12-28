@@ -4,9 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BurgerKing.Models;
-using System.Linq;
 using System.Data.Entity;
-using BurgerKing.Models;
 
 namespace BurgerKing.Controllers
 {
@@ -24,8 +22,22 @@ namespace BurgerKing.Controllers
         {
             BurgerKingDBContext dBContext = new BurgerKingDBContext();
             Product_Category product = dBContext.Product_Category.FirstOrDefault(x => x.ProId == id);
+            
+            // Truyền thông tin các đánh giá của sản phẩm cho ViewBag
+            var reviews = dBContext.ProductReviews.Where(r => r.ProId == id).Include(r => r.Account).ToList();
+            ViewBag.Reviews = reviews;
+
             // Truyền đối tượng model cho view
             return View(product);
+        }
+
+        public ActionResult CreateReview(FormCollection reviewForm)
+        {
+            var review = new BurgerKing.Models.ProductReview()
+            {
+                ReviewDate = DateTime.Now
+            };
+            return View();
         }
     }
 }

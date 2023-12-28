@@ -48,7 +48,9 @@ namespace BurgerKing.Controllers
                                 Id = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Id).FirstOrDefault(),
                                 Name = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault(),
                                 Email = emailOrPhoneNumber,
-                                Phone = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Phone).FirstOrDefault()
+                                Phone = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Phone).FirstOrDefault(),
+                                Image = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Image).FirstOrDefault(),
+                                Address = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Address).FirstOrDefault()
                             };
                             string accountJson = JsonConvert.SerializeObject(account);
                             cookie.Value = accountJson;
@@ -82,7 +84,9 @@ namespace BurgerKing.Controllers
                                 Id = dbContext.Accounts.Where(acc => acc.Email == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Id).FirstOrDefault(),
                                 Name = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Name).FirstOrDefault(),
                                 Email = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Email).FirstOrDefault(),
-                                Phone = emailOrPhoneNumber
+                                Phone = emailOrPhoneNumber,
+                                Image = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Image).FirstOrDefault(),
+                                Address = dbContext.Accounts.Where(acc => acc.Phone == emailOrPhoneNumber && acc.Password.ToLower() == password.ToLower()).Select(acc => acc.Address).FirstOrDefault()
                             };
                             string accountJson = JsonConvert.SerializeObject(account);
                             cookie.Value = accountJson;

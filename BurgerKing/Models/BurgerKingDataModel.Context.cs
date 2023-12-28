@@ -32,5 +32,6 @@ namespace BurgerKing.Models
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<ProductReview> ProductReviews { get; set; }
     }
 }

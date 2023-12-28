@@ -381,6 +381,9 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductReview.cs">
+      <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product_Category.cs">
       <DependentUpon>BurgerKingDataModel.tt</DependentUpon>
     </Compile>
