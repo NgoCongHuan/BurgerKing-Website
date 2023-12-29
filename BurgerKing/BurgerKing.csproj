@@ -581,6 +581,7 @@
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Customer\OrderHistory.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Shared\_OrderDetailModal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

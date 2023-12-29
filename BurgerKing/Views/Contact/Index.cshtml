@@ -1,4 +1,6 @@
-﻿
+﻿@using Newtonsoft.Json;
+@using BurgerKing.Models;
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,38 +39,91 @@
                 </div>
                 <div class="col-md-6">
                     <div class="wow fadeInUp" data-wow-delay="0.2s">
-                        @using (Html.BeginForm("SendContact", "Contact", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        @{
+                            string accountInfo = Request.Cookies["AccountInfo"]?.Value;
+
+                            if (!string.IsNullOrEmpty(accountInfo))
+                            {
+                                Account acc = JsonConvert.DeserializeObject<Account>(accountInfo);
+
+                                if (acc != null)
+                                {
+                                    ViewBag.Name = acc.Name;
+                                    ViewBag.Email = acc.Email;
+                                }
+                            }
+                        }
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            @*@Html.AntiForegyToken()*@
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
-                                        <label for="name">Họ và Tên</label>
+                            using (Html.BeginForm("SendContact", "Contact", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @*@Html.AntiForegyToken()*@
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="name" placeholder="Your Name" required value="@ViewBag.Name">
+                                            <label for="name">Họ và Tên</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="email" placeholder="Your Email" required value="@ViewBag.Email">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="subject" placeholder="Subject">
+                                            <label for="subject">Tiêu đề</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Leave a message here" name="message" style="height: 150px" required></textarea>
+                                            <label for="message">Nội dung</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="submit" name="Process Order" class="btn btn-warning p-2" style="width:20%; color:white" />
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" name="email" placeholder="Your Email" required>
-                                        <label for="email">Email</label>
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("SendContact", "Contact", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @*@Html.AntiForegyToken()*@
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+                                            <label for="name">Họ và Tên</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="email" placeholder="Your Email" required>
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="subject" placeholder="Subject">
+                                            <label for="subject">Tiêu đề</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Leave a message here" name="message" style="height: 150px" required></textarea>
+                                            <label for="message">Nội dung</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="submit" name="Process Order" class="btn btn-warning p-2" style="width:20%; color:white" />
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" name="subject" placeholder="Subject">
-                                        <label for="subject">Tiêu đề</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" name="message" style="height: 150px" required></textarea>
-                                        <label for="message">Nội dung</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <input type="submit" name="Process Order" class="btn btn-warning p-2" style="width:20%; color:white" />
-                                </div>
-                            </div>
+                            }
                         }
                     </div>
                 </div>

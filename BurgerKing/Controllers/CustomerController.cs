@@ -39,45 +39,73 @@ namespace BurgerKing.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (ImageFile != null && ImageFile.ContentLength > 0)
+                // Lấy thực thể Account có sẵn từ cơ sở dữ liệu
+                Account existingAccount = dbContext.Accounts.Find(account.Id);
+
+                if (existingAccount != null)
                 {
-                    // Xử lý hình ảnh
-                    string filename = Path.GetFileName(ImageFile.FileName);
-                    string _filename = DateTime.Now.ToString("yymmssfff") + filename;
-                    string extension = Path.GetExtension(ImageFile.FileName);
-                    string path = Path.Combine(Server.MapPath("~/images/"), _filename);
-
-                    account.Image = _filename;
-
-                    if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
+                    if (ImageFile != null && ImageFile.ContentLength > 0)
                     {
-                        if (ImageFile.ContentLength <= 10000000)
+                        // Xử lý hình ảnh
+                        string filename = Path.GetFileName(ImageFile.FileName);
+                        string _filename = DateTime.Now.ToString("yymmssfff") + filename;
+                        string extension = Path.GetExtension(ImageFile.FileName);
+                        string path = Path.Combine(Server.MapPath("~/images/"), _filename);
+
+                        account.Image = _filename;
+
+                        if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
                         {
-                            // Tiếp tục với việc cập nhật thông tin tài khoản
-                            account.RoleId = dbContext.Roles.FirstOrDefault(r => r.RoleName == "Customer").RoleId;
-                            dbContext.Entry(account).State = EntityState.Modified;
-                            dbContext.SaveChanges();
+                            if (ImageFile.ContentLength <= 10000000)
+                            {
+                                // Tiếp tục với việc cập nhật thông tin tài khoản
+                                account.RoleId = dbContext.Roles.FirstOrDefault(r => r.RoleName == "Customer").RoleId;
 
-                            // Lưu hình ảnh sau khi đã lưu thay đổi vào cơ sở dữ liệu
-                            ImageFile.SaveAs(path);
+                                // Cập nhật giá trị của thực thể đã có trong cơ sở dữ liệu
+                                dbContext.Entry(existingAccount).CurrentValues.SetValues(account);
 
-                            ViewBag.msg = "Record Added";
-                            ModelState.Clear();
-                            return RedirectToAction("Index");
+                                // Lưu thay đổi vào cơ sở dữ liệu
+                                dbContext.SaveChanges();
+
+                                // Lưu hình ảnh sau khi đã lưu thay đổi vào cơ sở dữ liệu
+                                ImageFile.SaveAs(path);
+
+                                ViewBag.msg = "Record Added";
+                                ModelState.Clear();
+                                return RedirectToAction("Index");
+                            }
+                            else
+                            {
+                                ViewBag.msg = "File size is not valid (should be less than or equal to 1MB)";
+                            }
                         }
                         else
                         {
-                            ViewBag.msg = "File size is not valid (should be less than or equal to 1MB)";
+                            ViewBag.msg = "File format is not valid (only JPG, JPEG, and PNG are allowed)";
                         }
                     }
                     else
                     {
-                        ViewBag.msg = "File format is not valid (only JPG, JPEG, and PNG are allowed)";
+                        // Nếu không có tệp ảnh mới, giữ nguyên ảnh hiện tại của tài khoản trong cơ sở dữ liệu
+                        account.Image = existingAccount.Image;
+
+                        // Tiếp tục với việc cập nhật thông tin tài khoản
+                        account.RoleId = dbContext.Roles.FirstOrDefault(r => r.RoleName == "Customer").RoleId;
+
+                        // Cập nhật giá trị của thực thể đã có trong cơ sở dữ liệu
+                        dbContext.Entry(existingAccount).CurrentValues.SetValues(account);
+
+                        // Lưu thay đổi vào cơ sở dữ liệu
+                        dbContext.SaveChanges();
+
+                        ViewBag.msg = "Record Added";
+                        ModelState.Clear();
+                        return RedirectToAction("Index");
                     }
                 }
                 else
                 {
-                    ViewBag.msg = "Please select a file";
+                    ViewBag.msg = "Account not found in the database";
                 }
             }
 
@@ -93,6 +121,7 @@ namespace BurgerKing.Controllers
             // Nếu ModelState không hợp lệ, quay lại view với model và hiển thị lỗi
             return View(account);
         }
+
 
 
         public ActionResult OrderHistory(int? id)
@@ -120,6 +149,36 @@ namespace BurgerKing.Controllers
             ViewBag.OrderTotalPrices = orderTotalPrices;
 
             return View(orders);
+        }
+
+        public ActionResult ViewOrder(string id)
+        {
+            BurgerKingDBContext db = new BurgerKingDBContext();
+
+            // Khởi tạo 2 đối tượng Order và OrderDetail tương ứng
+            Order order = db.Orders.Find(id);
+            List<OrderDetail> orderDetails = db.OrderDetails.Where(o => o.OrderId == id).ToList();
+
+            // Kiểm tra nếu là null thì trả về lỗi
+            if (order == null)
+            {
+                // Return a partial view with a message indicating no order was found
+                return PartialView("_OrderNotFound");
+            }
+
+            // Tính tổng số tiền thanh toán
+            int? totalPrice = (int?)db.OrderDetails.Where(o => o.OrderId == id).Sum(o => o.Price * o.Quantity);
+            ViewBag.TotalPrice = totalPrice;
+
+            // Khởi tạo đối tượng Order_OrderDetail
+            Order_OrderDetail ord_ordDetails = new Order_OrderDetail()
+            {
+                Order = order,
+                OrderDetails = orderDetails
+            };
+
+            // Trả về Partial View nếu có đơn hàng
+            return PartialView("_OrderDetailModal", ord_ordDetails);
         }
     }
 }

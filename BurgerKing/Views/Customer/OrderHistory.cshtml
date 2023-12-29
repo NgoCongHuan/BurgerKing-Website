@@ -72,9 +72,14 @@
                                     <tr>
                                         <th>@order.OrderId</th>
                                         <td>@order.OrderDate</td>
-                                        <td>@ViewBag.OrderTotalPrices[order.OrderId]</td>
+                                        <td>@ViewBag.OrderTotalPrices[order.OrderId] VNĐ</td>
                                         <td>@order.Status</td>
-                                        <td>Chi tiết</td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary view-order-details" data-order-id="@order.OrderId">
+                                                <i class="bi bi-info-circle"></i> Chi tiết
+                                            </a>
+
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
@@ -85,6 +90,39 @@
         </div>
     </div>
 </div>
+
+<!-- Thêm thẻ div để chứa nội dung modal -->
+<div id="orderDetailContainer"></div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Xử lý khi nút "Chi tiết" được click
+        $(".view-order-details").click(function (e) {
+            e.preventDefault();
+
+            // Lấy OrderId từ thuộc tính data-order-id
+            var orderId = $(this).data("order-id");
+
+            // Sử dụng Ajax để tải partial view và hiển thị nó trong modal
+            $.ajax({
+                url: '@Url.Action("ViewOrder", "Customer")',
+                type: 'GET',
+                data: { id: orderId },
+                success: function (data) {
+                    // Đặt nội dung partial view vào div container trong trang chính
+                    $("#orderDetailContainer").html(data);
+
+                    // Mở modal
+                    $("#orderDetailModal-" + orderId).modal("show");
+                }
+            });
+        });
+    });
+</script>
+
 
 <style>
     .option {
@@ -106,6 +144,12 @@
         border: 1px solid #fea116;
         font-size: 20px;
         font-weight: bold;
+    }
+
+    #hidden-background {
+        background-color: rgba(0,0,0,0.03);
+        border: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.125);
     }
 </style>
 
