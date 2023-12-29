@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -49,13 +50,48 @@ namespace BurgerKing.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Email,Phone,Password,RoleId")] Account account)
+        public ActionResult Create(Account account, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+
+            if (file != null && file.ContentLength > 0)
             {
-                db.Accounts.Add(account);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string filename = Path.GetFileName(file.FileName);
+                string _filename = DateTime.Now.ToString("yymmssfff") + filename;
+                string extension = Path.GetExtension(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/images/"), _filename);
+
+                // Set image path for the product
+                account.Image = "~/images/male.jpg";
+
+                if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
+                {
+                    if (file.ContentLength <= 1000000)
+                    {
+                        // Continue with product creation
+                        TryUpdateModel(account); // Bind other properties from the form
+                        if (ModelState.IsValid)
+                        {
+                            db.Accounts.Add(account);
+                            db.SaveChanges();
+                            file.SaveAs(path);
+                            ViewBag.msg = "Record Added";
+                            ModelState.Clear();
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.msg = "File size is not valid (should be less than or equal to 1MB)";
+                    }
+                }
+                else
+                {
+                    ViewBag.msg = "File format is not valid (only JPG, JPEG, and PNG are allowed)";
+                }
+            }
+            else
+            {
+                ViewBag.msg = "Please select a file";
             }
 
             ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName", account.RoleId);

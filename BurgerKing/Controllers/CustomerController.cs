@@ -35,7 +35,7 @@ namespace BurgerKing.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "Id,Name,Email,Phone,Password,RoleId,Address")] Account account, HttpPostedFileBase ImageFile)
+        public ActionResult Index([Bind(Include = "Id,Name,Email,Phone,RoleId,Address")] Account account, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +58,9 @@ namespace BurgerKing.Controllers
                         {
                             if (ImageFile.ContentLength <= 10000000)
                             {
+                                // Giữ nguyên mật khẩu
+                                account.Password = existingAccount.Password;
+
                                 // Tiếp tục với việc cập nhật thông tin tài khoản
                                 account.RoleId = dbContext.Roles.FirstOrDefault(r => r.RoleName == "Customer").RoleId;
 
@@ -76,16 +79,19 @@ namespace BurgerKing.Controllers
                             }
                             else
                             {
-                                ViewBag.msg = "File size is not valid (should be less than or equal to 1MB)";
+                                ViewBag.msg = "Kích thước tệp không hợp lệ (phải nhỏ hơn hoặc bằng 1MB)";
                             }
                         }
                         else
                         {
-                            ViewBag.msg = "File format is not valid (only JPG, JPEG, and PNG are allowed)";
+                            ViewBag.msg = "Định dạng tệp không hợp lệ (chỉ chấp nhận các định dạng JPG, JPEG và PNG)";
                         }
                     }
                     else
                     {
+                        // Giữ nguyên mật khẩu
+                        account.Password = existingAccount.Password;
+
                         // Nếu không có tệp ảnh mới, giữ nguyên ảnh hiện tại của tài khoản trong cơ sở dữ liệu
                         account.Image = existingAccount.Image;
 
@@ -105,7 +111,7 @@ namespace BurgerKing.Controllers
                 }
                 else
                 {
-                    ViewBag.msg = "Account not found in the database";
+                    ViewBag.msg = "Không tìm thấy tài khoản trong cơ sở dữ liệu";
                 }
             }
 
@@ -130,7 +136,7 @@ namespace BurgerKing.Controllers
             var email = dbContext.Accounts.Where(acc => acc.Id == id).Select(acc => acc.Email).FirstOrDefault();
 
             // Lấy ra những đơn hàng của người dùng trùng với email
-            List<Order> orders = dbContext.Orders.Where(o => o.CustomerEmail == email).ToList();
+            List<Order> orders = dbContext.Orders.Where(o => o.CustomerEmail == email).OrderByDescending(o => o.OrderDate).ToList();
 
             // Tính tổng số tiền của từng đơn hàng và gán cho ViewBag
             Dictionary<string, double?> orderTotalPrices = new Dictionary<string, double?>();

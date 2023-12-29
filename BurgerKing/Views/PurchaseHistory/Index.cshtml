@@ -9,6 +9,17 @@
         border-color: #FEA116;
         border-top-color: transparent;
     }
+
+    #group-search {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    @@media(max-width: 480px){
+        #group-search{
+            width: 90%;
+        }
+    }
 </style>
 
 <div class="container-xxl py-5">
@@ -17,7 +28,7 @@
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Đơn hàng</h5>
             <h1 class="mb-5">Kiểm tra trạng thái đơn hàng của bạn</h1>
         </div>
-        <div class="order-tracker-section wow fadeInUp" style="width:60%; margin:0 auto;">
+        <div id="group-search" class="order-tracker-section wow fadeInUp">
             <form novalidate class="needs-validation">
                 <div class="mb-4">
                     <label for="orderNumber" class="form-label"><b>Mã đơn hàng</b><span class="text-danger">*</span></label>

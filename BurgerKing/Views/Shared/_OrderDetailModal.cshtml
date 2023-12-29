@@ -5,69 +5,6 @@
     var totalPrice = ViewBag.TotalPrice;
 }
 
-<style>
-    .container-ribbon {
-        --d: 6px; /* folded part */
-        --c: blue; /* color */
-        --f: 16px; /* ribbon font-size */
-
-        width: 60%;
-        position: relative;
-        margin: 0 auto;
-    }
-
-        .container-ribbon::before {
-            z-index: 1;
-            content: attr(data-ribbon);
-            position: absolute;
-            font-size: var(--f);
-            top: 0;
-            right: 0;
-            transform: translate(29.29%, -100%) rotate(45deg);
-            color: #fff;
-            text-align: center;
-            border: 1px solid transparent;
-            border-bottom: 0;
-            transform-origin: bottom left;
-            padding: 5px 35px calc(var(--d) + 5px);
-            background: linear-gradient(rgba(0, 0, 0, 0.5) 0 0) bottom/100% var(--d) no-repeat var(--c);
-            background-clip: padding-box;
-            clip-path: polygon(0 0,100% 0,100% 100%,calc(100% - var(--d)) calc(100% - var(--d)),var(--d) calc(100% - var(--d)),0 100%);
-            -webkit-mask: linear-gradient(135deg,transparent calc(50% - var(--d) * 0.707),#fff 0) bottom left, linear-gradient(-135deg, transparent calc(50% - var(--d) * 0.707), #fff 0)bottom right;
-            -webkit-mask-size: 300vmax 300vmax;
-            -webkit-mask-composite: destination-in;
-            mask-composite: intersect;
-        }
-
-    .card {
-        border: none;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .text-right {
-        text-align: right;
-    }
-
-    .font-weight-bold {
-        font-weight: bold;
-        color: black;
-    }
-
-    .modal-dialog {
-        max-width: none;
-    }
-
-    .modal-content {
-        background-color: transparent;
-        border: 0;
-    }
-
-    #hidden-background {
-        background-color: rgba(0,0,0,0.03);
-        border: 0;
-        border-bottom: 1px solid rgba(0,0,0,0.125);
-    }
-</style>
 
 <div class="modal" id="orderDetailModal-@Model.Order.OrderId" tabindex="-1" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -77,10 +14,9 @@
                 <div class="container">
                     <div class="container-ribbon" data-ribbon="@(Model.Order.Status == "Đang chờ thanh toán" ? "Chưa thanh toán" : "Đã thanh toán")" style="--d:8px;--c:@(Model.Order.Status == "Đang chờ thanh toán" ? "red" : "green")">
                         <div class="card">
+                            <i id="button-close" data-bs-dismiss="modal" class='fas fa-window-close'></i>
 
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-
-                            <div id="hidden-background " class="card-header justify-content-between logo p-2 px-5" style="display:flex">
+                            <div id="hidden-background" class="card-header justify-content-between logo p-2 px-5" style="display:flex">
                                 <img src="~/images/logo.png" style="width:50px; height:auto" />
                             </div>
 
@@ -216,4 +152,95 @@
         </div>
     </div>
 </div>
+
+
+<style>
+
+
+    .container-ribbon {
+        --d: 6px; /* folded part */
+        --c: blue; /* color */
+        --f: 16px; /* ribbon font-size */
+
+        width: 60%;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    #button-close:hover {
+        cursor: pointer;
+    }
+
+    #button-close {
+        font-size: 30px;
+        color: #FEA116;
+        position: absolute;
+        top: 0;
+        right: -50px;
+    }
+
+    @@media (max-width: 480px) {
+        .container-ribbon {
+            width: 90%;
+        }
+
+        #button-close {
+            right: -33px;
+        }
+    }
+
+    .container-ribbon::before {
+        z-index: 1;
+        content: attr(data-ribbon);
+        position: absolute;
+        font-size: var(--f);
+        top: 0;
+        right: 0;
+        transform: translate(29.29%, -100%) rotate(45deg);
+        color: #fff;
+        text-align: center;
+        border: 1px solid transparent;
+        border-bottom: 0;
+        transform-origin: bottom left;
+        padding: 5px 35px calc(var(--d) + 5px);
+        background: linear-gradient(rgba(0, 0, 0, 0.5) 0 0) bottom/100% var(--d) no-repeat var(--c);
+        background-clip: padding-box;
+        clip-path: polygon(0 0,100% 0,100% 100%,calc(100% - var(--d)) calc(100% - var(--d)),var(--d) calc(100% - var(--d)),0 100%);
+        -webkit-mask: linear-gradient(135deg,transparent calc(50% - var(--d) * 0.707),#fff 0) bottom left, linear-gradient(-135deg, transparent calc(50% - var(--d) * 0.707), #fff 0)bottom right;
+        -webkit-mask-size: 300vmax 300vmax;
+        -webkit-mask-composite: destination-in;
+        mask-composite: intersect;
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .font-weight-bold {
+        font-weight: bold;
+        color: black;
+    }
+
+    .modal-dialog {
+        max-width: none;
+    }
+
+    .modal-content {
+        background-color: transparent;
+        border: 0;
+    }
+
+    #hidden-background {
+        background-color: rgba(0,0,0,0.03);
+        border: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.125);
+    }
+
+    
+</style>
 
