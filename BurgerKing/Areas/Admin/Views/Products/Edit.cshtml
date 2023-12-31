@@ -5,41 +5,48 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title" style="font-weight: bold;"> Sửa sản phẩm </h3>
+            <h3 class="page-title" style="font-weight:bold"> Chỉnh sửa thông tin sản phẩm </h3>
         </div>
         <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
+            <div class="col-lg-5 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title" style="font-weight:bold">Ảnh sản phẩm</h4>
+                        <img id="previewImage" src="~/images/@Model.ProImage" alt="Preview Image" style="width: 100%; height: auto;" />
+                        <br />
+                        <input type="file" class="form-control file-upload-info" name="file" required="required" id="file" onchange="displayImage(this)" style="background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" />
+                        @Html.ValidationMessageFor(model => model.ProImage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <form class="forms-sample">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             @Html.HiddenFor(model => model.ProId)
                             <div class="form-group">
-                                <h4 class="card-title" style="font-weight: bold;">Ảnh sản phẩm</h4>
-                                @Html.EditorFor(model => model.ProImage, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ProImage, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                <h4 class="card-title" style="font-weight: bold;">Tên sản phẩm</h4>
+                                <h4 class="card-title" style="font-weight:bold">Tên sản phẩm</h4>
                                 @Html.EditorFor(model => model.ProName, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.ProName, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title" style="font-weight: bold;">Mô tả sản phẩm</h4>
+                                <h4 class="card-title" style="font-weight:bold">Mô tả sản phẩm</h4>
                                 @Html.EditorFor(model => model.ProDes, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.ProDes, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title" style="font-weight: bold;">Loại sản phẩm</h4>
+                                <h4 class="card-title" style="font-weight:bold">Loại sản phẩm</h4>
                                 @Html.DropDownList("CatId", null, htmlAttributes: new { @class = "dropdown-toggle", style = "background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" })
                                 @Html.ValidationMessageFor(model => model.CatId, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <h4 class="card-title" style="font-weight: bold;">Đơn giá sản phẩm</h4>
+                                <h4 class="card-title" style="font-weight:bold">Đơn giá sản phẩm</h4>
                                 @Html.EditorFor(model => model.ProPrice, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.ProPrice, "", new { @class = "text-danger" })
                             </div>
@@ -52,3 +59,21 @@
         </div>
     </div>
 }
+
+<script>
+    function displayImage(input) {
+        var fileInput = input;
+        var previewImage = document.getElementById('previewImage');
+
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>

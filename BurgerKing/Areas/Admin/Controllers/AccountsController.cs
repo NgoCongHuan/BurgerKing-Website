@@ -60,15 +60,15 @@ namespace BurgerKing.Areas.Admin.Controllers
                 string extension = Path.GetExtension(file.FileName);
                 string path = Path.Combine(Server.MapPath("~/images/"), _filename);
 
-                // Set image path for the product
-                account.Image = "~/images/male.jpg";
+                // Tên ảnh cho Image Account
+                account.Image = _filename;
 
                 if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
                 {
                     if (file.ContentLength <= 1000000)
                     {
-                        // Continue with product creation
-                        TryUpdateModel(account); // Bind other properties from the form
+                        
+                        TryUpdateModel(account); 
                         if (ModelState.IsValid)
                         {
                             db.Accounts.Add(account);
@@ -81,17 +81,17 @@ namespace BurgerKing.Areas.Admin.Controllers
                     }
                     else
                     {
-                        ViewBag.msg = "File size is not valid (should be less than or equal to 1MB)";
+                        ViewBag.msg = "Kích thước tệp không hợp lệ (phải nhỏ hơn hoặc bằng 1MB)";
                     }
                 }
                 else
                 {
-                    ViewBag.msg = "File format is not valid (only JPG, JPEG, and PNG are allowed)";
+                    ViewBag.msg = "Định dạng tệp không hợp lệ (chỉ chấp nhận các định dạng JPG, JPEG và PNG)";
                 }
             }
             else
             {
-                ViewBag.msg = "Please select a file";
+                ViewBag.msg = "Vui lòng chọn tệp";
             }
 
             ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName", account.RoleId);
@@ -119,14 +119,49 @@ namespace BurgerKing.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Email,Phone,Password,RoleId")] Account account)
+        public ActionResult Edit(Account account, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            if (file != null && file.ContentLength > 0)
             {
-                db.Entry(account).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string filename = Path.GetFileName(file.FileName);
+                string _filename = DateTime.Now.ToString("yymmssfff") + filename;
+                string extension = Path.GetExtension(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/images/"), _filename);
+
+                // Tên ảnh cho Image Account
+                account.Image = _filename;
+
+                if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
+                {
+                    if (file.ContentLength <= 1000000)
+                    {
+
+                        TryUpdateModel(account);
+                        if (ModelState.IsValid)
+                        {
+                            db.Entry(account).State = EntityState.Modified;
+                            db.SaveChanges();
+                            file.SaveAs(path);
+                            ViewBag.msg = "Record Added";
+                            ModelState.Clear();
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.msg = "Kích thước tệp không hợp lệ (phải nhỏ hơn hoặc bằng 1MB)";
+                    }
+                }
+                else
+                {
+                    ViewBag.msg = "Định dạng tệp không hợp lệ (chỉ chấp nhận các định dạng JPG, JPEG và PNG)";
+                }
             }
+            else
+            {
+                ViewBag.msg = "Vui lòng chọn tệp";
+            }
+
             ViewBag.RoleId = new SelectList(db.Roles, "RoleId", "RoleName", account.RoleId);
             return View(account);
         }

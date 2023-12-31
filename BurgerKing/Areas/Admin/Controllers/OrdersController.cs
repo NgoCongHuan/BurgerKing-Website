@@ -43,29 +43,6 @@ namespace BurgerKing.Areas.Admin.Controllers
             return View(order);
         }
 
-        // GET: Admin/Orders/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Admin/Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrderId,OrderName,OrderDate,PaymentType,Status,CustomerName,CustomerPhone,CustomerEmail,CustomerAddress")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(order);
-        }
-
         // GET: Admin/Orders/Edit/5
         public ActionResult Edit(string id)
         {

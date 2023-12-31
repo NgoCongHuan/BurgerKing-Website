@@ -23,6 +23,27 @@
     }
 }
 
+<style>
+    .square-image {
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%; /* Điều này giữ cho chiều cao bằng với chiều rộng, tạo hình vuông */
+        position: relative;
+    }
+
+        .square-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Điều này làm cho hình ảnh tự động cắt để fit vào kích thước của phần tử cha */
+        }
+
+
+        
+</style>
+
 <div class="container profile-container">
     <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
         <h5 class="section-title ff-secondary text-center text-primary fw-normal">Tài khoản</h5>
@@ -33,8 +54,10 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="text-center">
-                    <div class="rounded-circle overflow-hidden m-4">
-                        <img class="img-fluid" src="~/images/@ViewBag.Image" alt="">
+                    <div style="padding: 20px 20px">
+                        <div class="rounded-circle overflow-hidden square-image">
+                            <img id="" class="img-fluid" src="~/images/@ViewBag.Image" alt="Preview Image" style="width: 100%; height: auto;" />
+                        </div>
                     </div>
                     <h5 class="mb-0">@ViewBag.Name</h5>
                     <small>@ViewBag.Phone </small>

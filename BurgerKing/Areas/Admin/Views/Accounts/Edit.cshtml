@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Accounts", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="content-wrapper">
@@ -17,7 +17,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title" style="font-weight:bold">Ảnh đại diện</h4>
-                        <img width="100%" height="auto" src="" />
+                        <img id="previewImage" src="~/images/@Model.Image" alt="Preview Image" style="width: 100%; height: auto;" />
+                        <br />
+                        <input type="file" class="form-control file-upload-info" name="file" required="required" id="file" onchange="displayImage(this)" style="background-color: #fff; padding: 0.94rem 1.375rem; color: #212529; border: 1px solid #ebedf2; width: 100% !important;" />
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -48,6 +51,11 @@
                                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
+                                <h4 class="card-title" style="font-weight:bold">Địa chỉ</h4>
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
                                 <h4 class="card-title" style="font-weight:bold">Mật khẩu</h4>
                                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
@@ -66,3 +74,21 @@
         </div>
     </div>
 }
+
+<script>
+    function displayImage(input) {
+        var fileInput = input;
+        var previewImage = document.getElementById('previewImage');
+
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>

@@ -5,6 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    #information {
+        display: flex;
+    }
+
+    #payment-group {
+        padding: 0 20%;
+    }
+
+    .form-element-momo {
+        margin-bottom: 1rem !important;
+    }
+
+    @@media(max-width: 480px) {
+        #information {
+            display: block;
+        }
+
+        #payment-group {
+            padding:0 0;
+        }
+
+        .form-element-momo {
+            margin-bottom: 1rem !important;
+            width: 100%
+        }
+
+        .form-element-cash {
+            margin-bottom: 1rem !important;
+            width: 100%
+        }
+
+        #thanhtoan {
+            width: 100%;
+        }
+    }
+</style>
+
 @{
     if (Session["Cart"] != null)
     {
@@ -15,11 +53,11 @@
 
         <div class="container-xxl py-5">
             <div class="container">
-                <div class="col-lg-12" style="padding: 0 20%;">
+                <div id="payment-group" class="col-lg-12">
                     <div class="col-lg-12 mb-3">
                         <div class="shadow">
                             <div class="p-4">
-                                <div class="d-flex justify-content-between mb-3">
+                                <div id="information" class="justify-content-between mb-3">
                                     <span><h4>Mã đơn hàng: @ViewBag.OrderId</h4></span>
                                     <span><h4>Tổng thanh toán: @ViewBag.TotalPrice VNĐ</h4> </span>
                                 </div>

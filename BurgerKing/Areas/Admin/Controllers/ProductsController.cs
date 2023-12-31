@@ -52,8 +52,6 @@ namespace BurgerKing.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(HttpPostedFileBase file, Product product)
         {
-            // Load categories for dropdownlist
-            ViewBag.CatId = new SelectList(db.Categories, "CatId", "CatName");
 
             if (file != null && file.ContentLength > 0)
             {
@@ -62,15 +60,15 @@ namespace BurgerKing.Areas.Admin.Controllers
                 string extension = Path.GetExtension(file.FileName);
                 string path = Path.Combine(Server.MapPath("~/images/"), _filename);
 
-                // Set image path for the product
+                // Đặt tên ảnh cho Product
                 product.ProImage = _filename;
 
                 if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
                 {
                     if (file.ContentLength <= 1000000)
                     {
-                        // Continue with product creation
-                        TryUpdateModel(product); // Bind other properties from the form
+
+                        TryUpdateModel(product); 
                         if (ModelState.IsValid)
                         {
                             db.Products.Add(product);
@@ -83,20 +81,20 @@ namespace BurgerKing.Areas.Admin.Controllers
                     }
                     else
                     {
-                        ViewBag.msg = "File size is not valid (should be less than or equal to 1MB)";
+                        ViewBag.msg = "Kích thước tệp không hợp lệ (phải nhỏ hơn hoặc bằng 1MB)";
                     }
                 }
                 else
                 {
-                    ViewBag.msg = "File format is not valid (only JPG, JPEG, and PNG are allowed)";
+                    ViewBag.msg = "Định dạng tệp không hợp lệ (chỉ chấp nhận các định dạng JPG, JPEG và PNG)";
                 }
             }
             else
             {
-                ViewBag.msg = "Please select a file";
+                ViewBag.msg = "Vui lòng chọn tệp";
             }
 
-            // Repopulate the dropdownlist if there's an error
+            // Hiển thị Drop Down List
             ViewBag.CatId = new SelectList(db.Categories, "CatId", "CatName", product.CatId);
             return View(product);
         }
@@ -123,14 +121,47 @@ namespace BurgerKing.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProId,ProName,ProImage,ProDes,CatId,ProPrice")] Product product)
+        public ActionResult Edit(Product product, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            if (file != null && file.ContentLength > 0)
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string filename = Path.GetFileName(file.FileName);
+                string _filename = DateTime.Now.ToString("yymmssfff") + filename;
+                string extension = Path.GetExtension(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/images/"), _filename);
+
+                // Đặt tên ảnh cho Product
+                product.ProImage = _filename;
+
+                if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
+                {
+                    if (file.ContentLength <= 1000000)
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            db.Entry(product).State = EntityState.Modified;
+                            db.SaveChanges();
+                            file.SaveAs(path);
+                            ViewBag.msg = "Record Added";
+                            ModelState.Clear();
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.msg = "Kích thước tệp không hợp lệ (phải nhỏ hơn hoặc bằng 1MB)";
+                    }
+                }
+                else
+                {
+                    ViewBag.msg = "Định dạng tệp không hợp lệ (chỉ chấp nhận các định dạng JPG, JPEG và PNG)";
+                }
             }
+            else
+            {
+                ViewBag.msg = "Vui lòng chọn tệp";
+            }
+            
             ViewBag.CatId = new SelectList(db.Categories, "CatId", "CatName", product.CatId);
             return View(product);
         }

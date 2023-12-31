@@ -67,27 +67,29 @@
         <div class="col-md-5 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th style="font-weight:bold"> Ảnh sản phẩm </th>
-                                <th style="font-weight:bold"> Tên sản phẩm </th>
-                                <th style="font-weight:bold"> Đơn giá </th>
-                                <th style="font-weight:bold"> Số lượng </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var pro in Model.OrderDetails)
-                            {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
-                                    <td> <img src="~/images/@pro.Product.ProImage" class="img-fluid" /> </td>
-                                    <td> @pro.Product.ProName </td>
-                                    <td> @pro.Price </td>
-                                    <td> @pro.Quantity </td>
+                                    <th style="font-weight:bold"> Ảnh sản phẩm </th>
+                                    <th style="font-weight:bold"> Tên sản phẩm </th>
+                                    <th style="font-weight:bold"> Đơn giá </th>
+                                    <th style="font-weight:bold"> Số lượng </th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var pro in Model.OrderDetails)
+                                {
+                                    <tr>
+                                        <td> <img src="~/images/@pro.Product.ProImage" class="img-fluid" /> </td>
+                                        <td> @pro.Product.ProName </td>
+                                        <td> @pro.Price </td>
+                                        <td> @pro.Quantity </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

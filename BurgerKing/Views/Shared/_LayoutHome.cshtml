@@ -38,6 +38,17 @@
 </head>
 
 <body>
+    <style>
+        @@media(max-width:480px) {
+            #cart-icon {
+                margin-bottom: 0.5rem !important;
+            }
+
+            #dropdown-menu {
+                margin-bottom: 1rem !important;
+            }
+        }
+    </style>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -79,13 +90,13 @@
                             <a class="nav-item nav-link" href="@Url.Action("Index","PurchaseHistory")">Lịch sử đơn hàng</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@ViewBag.Name</a>
-                                <div class="dropdown-menu m-0 dropdown-account" style="right: 0;">
+                                <div id="dropdown-menu" class="dropdown-menu m-0 dropdown-account" style="right: 0;">
                                     @Html.ActionLink("Tài khoản", "Index", "Customer", new { id = ViewBag.Id }, new { @class = "dropdown-item" })
                                     @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
                                 </div>
                             </div>
                         </div>
-                        <div class="py-0 pe-4">
+                        <div id="cart-icon" class="py-0 pe-4">
                             <a href="@Url.Action("Index", "ShoppingCart")">
                                 <i class="fa" style="font-size:15px; color:#fff">&#xf217;</i>
                                 <span id="cart_count" class="quantityitem"></span>
@@ -100,7 +111,7 @@
                             <a class="nax-item nav-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
                             <a class="nav-item nav-link" href="@Url.Action("Index","PurchaseHistory")">Lịch sử đơn hàng</a>
                         </div>
-                        <div class="py-0 pe-4">
+                        <div id="cart-icon" class="py-0 pe-4">
                             <a href="@Url.Action("Index", "ShoppingCart")">
                                 <i class="fa" style="font-size:15px; color:#fff">&#xf217;</i>
                                 <span id="cart_count" class="quantityitem"></span>
