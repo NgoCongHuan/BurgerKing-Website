@@ -72,7 +72,6 @@ namespace BurgerKing
                 else
                 {
                     // Xử lý trường hợp không phải email hoặc số điện thoại
-                    // Ví dụ: trả về một giá trị mặc định hoặc ném một ngoại lệ
                     return new string[] { "DefaultRole" };
                 }
             }

@@ -60,7 +60,12 @@
     }
 </style>
 
-<div class="container-xxl wow fadeInUp" data-wow-delay="0.2s">
+<div class="container mb-3">
+    <div style="width: 60%; margin: 0 auto;">
+        <a id="download" class="btn btn-warning" style="color: #fff">In hóa đơn</a>
+    </div>
+</div>
+<div id="htmlContent" class="container-xxl wow fadeInUp" data-wow-delay="0.2s">
     <div class="container">
         <div class="container-ribbon" data-ribbon="@(Model.Order.Status == "Đang chờ thanh toán" ? "Chưa thanh toán" : "Đã thanh toán")" style="--d:8px;--c:@(Model.Order.Status == "Đang chờ thanh toán" ? "red" : "green")">
             <div class="card">
@@ -200,3 +205,24 @@
 
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+<script type="text/javascript">
+        function autoClick(){
+            $("#download").click();
+        }
+        $(document).ready(function(){
+            var element = $("#htmlContent");
+            
+            $("#download").on('click', function () {
+                html2canvas(element, {
+                    onrendered: function(canvas){
+                        var imageData = canvas.toDataURL("image/jpg");
+                        var newData = imageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
+                        $("#download").attr("download", "image.jpg").attr("href", newData);
+                    }
+                });
+            });
+        });
+</script>
