@@ -1,5 +1,7 @@
 # Burger King Website 
-A web application for selling hamburgers.
+
+- A web application for selling hamburgers.
+- Check out the live version of the website: [BurgerKingWebsite](http://www.burgerking.kcntt.edu.vn/)
 
 ## Previews Website
 - For Customer
@@ -41,7 +43,7 @@ Burger King Website is a web application built using ASP.NET MVC that allows cus
 Accounts in the database: 
 | Username                | Password      | Role           |
 |-------------------------|---------------|----------------|
-| customer1@gmail.com     | customer01    | user           |
+| customer1@gmail.com     | customer1     | user           |
 | admin1@gmail.com        | admin1        | administrator  |
 
 ## Usage
