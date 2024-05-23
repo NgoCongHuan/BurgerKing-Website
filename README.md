@@ -1,10 +1,54 @@
-<h1>Website Burger King ASP.NET MVC</h1>
+# Burger King Website 
 
-Hướng dẫn các bước khởi động:
-<ul>
-  <li>Bước 1: Mở Terminal và chạy lệnh "git clone https://github.com/NgoCongHuan/BurgerKing.git"</li>
-  <li>Bước 2: Mở File BurgerKingDatabase.sql trong SQL Server và chạy các script</li>
-  <li>Bước 3: Mở Project BurgerKing trong Visual Studio</li>
-  <li>Bước 4: Vào File Web.config chỉnh lại các thông số Connection string: data-source, user-id, password</li>
-  <li>Bước 5: Khởi động trang web</li>
-</ul>
+## Previews Website
+- For Customer
+
+- For Admin
+
+## Table of Contents
+
+- [About the Project](#about-the-project)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contact](#contact)
+
+## About the Project
+
+Burger King Website is a web application built using ASP.NET MVC that allows customers to browse a selection of hamburgers, place orders, and make payments through MoMo. Administrators have the ability to add, delete, and edit product listings to manage the hamburger offerings.
+
+### Built With
+
+- [ASP.NET MVC](https://dotnet.microsoft.com/apps/aspnet/mvc)
+- [Entity Framework](https://docs.microsoft.com/en-us/ef/)
+- [Bootstrap](https://getbootstrap.com/)
+- [MoMo Payment Gateway](https://momo.vn/)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
+
+## Installation
+
+1. Clone the repository: git clone https://github.com/NgoCongHuan/BurgerKing-Website
+2. Open SQL Server Management Studio and run script in BurgerKingDatabase.sql
+3. Open the solution in Visual Studio
+4. Change 'Connection String' in web.config
+5. Rebuild solution
+6. Run the project
+
+Accounts in the database: 
+| Username                | Password      | Role           |
+|-------------------------|---------------|----------------|
+| customer1@gmail.com     | customer01    | user           |
+| admin1@gmail.com        | admin1        | administrator  |
+
+## Usage
+### Customer Interface
+- Add new products to cart
+- Edit products in the shopping cart
+- Proceed to order and pay with Momo wallet
+- View order history
+- Register/Log in
+- Edit account information
+### Admin Interface
+- CRUD for all objects including: categories, products, accounts, orders
+
+## Contact
+If you have any questions, please contact via email at ngohuan18112002@gmail.com
