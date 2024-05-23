@@ -1,9 +1,14 @@
 # Burger King Website 
+A web application for selling hamburgers.
 
 ## Previews Website
 - For Customer
+  
+![Customer_Interface](/BurgerKing/images/user_interface.png)
 
 - For Admin
+
+![Admin_Interface](/BurgerKing/images/admin_interface.png)
 
 ## Table of Contents
 
